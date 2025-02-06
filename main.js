@@ -25,4 +25,25 @@
       const navLinksContainer = document.getElementById('nav-links');
       menuToggle.addEventListener('click', () => {
         navLinksContainer.classList.toggle('active');
-      })
+      });
+      
+          // Get visitor data from localStorage
+          let visits = JSON.parse(localStorage.getItem("visits")) || [];
+          
+          // Add new visit with current timestamp
+          let currentVisit = new Date().toLocaleString();
+          visits.push(currentVisit);
+          
+          // Save back to localStorage (keep only last 10 visits)
+          if (visits.length > 10) visits.shift();
+          localStorage.setItem("visits", JSON.stringify(visits));
+      
+          // Update the visitor section in HTML
+          document.getElementById("visit-count").innerHTML = `Total Visits: ${visits.length}`;
+          
+          let visitList = document.getElementById("visit-list");
+          visits.forEach(visit => {
+              let li = document.createElement("li");
+              li.textContent = `Visited on: ${visit}`;
+              visitList.appendChild(li);
+          });
