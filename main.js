@@ -26,24 +26,32 @@
       menuToggle.addEventListener('click', () => {
         navLinksContainer.classList.toggle('active');
       });
+     
+
+    function updateVisitorCount() {
+        let todayDate = new Date().toDateString(); // Get today's date as a string
+        let storedDate = localStorage.getItem('lastVisitDate'); // Last visit date
       
-          // Get visitor data from localStorage
+        let todayVisitors = parseInt(localStorage.getItem('todayVisitors')) || 0;
+        let totalVisitors = parseInt(localStorage.getItem('totalVisitors')) || 0;
       
-          
-          // Add new visit with current timestamp
-          let currentVisit = new Date().toLocaleString();
-          visits.push(currentVisit);
-          
-          // Save back to localStorage (keep only last 10 visits)
-          if (visits.length > 10) visits.shift();
-          localStorage.setItem("visits", JSON.stringify(visits));
+        if (storedDate !== todayDate) {
+          // Reset today's visitor count if the day has changed
+          todayVisitors = 0;
+          localStorage.setItem('lastVisitDate', todayDate);
+        }
       
-          // Update the visitor section in HTML
-          document.getElementById("visit-count").innerHTML = `Total Visits: ${visits.length}`;
-          
-          let visitList = document.getElementById("visit-list");
-          visits.forEach(visit => {
-              let li = document.createElement("li");
-              li.textContent = `Visited on: ${visit}`;
-              visitList.appendChild(li);
-          });
+        // Increment counters
+        todayVisitors++;
+        totalVisitors++;
+      
+        // Store updated counts
+        localStorage.setItem('todayVisitors', todayVisitors);
+        localStorage.setItem('totalVisitors', totalVisitors);
+      
+        // Update UI
+        document.getElementById('todayVisitors').textContent = todayVisitors;
+        document.getElementById('totalVisitors').textContent = totalVisitors;
+      }
+      
+      updateVisitorCount()
