@@ -28,7 +28,7 @@
       });
       
           // Get visitor data from localStorage
-          let visits = JSON.parse(localStorage.getItem("visits")) || [];
+      
           
           // Add new visit with current timestamp
           let currentVisit = new Date().toLocaleString();
