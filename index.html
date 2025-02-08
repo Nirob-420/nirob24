@@ -4,8 +4,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Portfolio</title>
-<link rel="stylesheet" href="style.css">
+ <style>        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
+        /* Custom Cursor */
+        body:hover {
+            cursor: none;
+        }
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #58a6ff;
+            background: rgba(88, 166, 255, 0.2);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: transform 0.1s ease-out, background 0.3s ease-in-out;
+            mix-blend-mode: difference;
+        }
+        a:hover ~ .cursor, .nav-links a:hover ~ .cursor {
+            transform: scale(2);
+            background: rgba(88, 166, 255, 0.5);
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            z-index: 999;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        .nav-links a {
+            padding: 8px 12px;
+            position: relative;
+            transition: color 0.4s ease;
+        }
+        .nav-links a:hover {
+            color: #58a6ff;
+            text-shadow: 0 0 15px #58a6ff;
+        }
+        .nav-links a.active {
+            color: #58a6ff;
+        }
+
+        /* 3-Dot Hamburger Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #58a6ff;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: radial-gradient(ellipse at top, #1f2937, #0d1117);
+            background-attachment: fixed;
+            position: relative;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out forwards;
+            opacity: 0;
+        }
+        .hero-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #58a6ff;
+            margin-bottom: 20px;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .typing {
+            font-size: 1.5rem;
+            border-right: 2px solid #58a6ff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 4s steps(30) infinite alternate;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-in-out;
+        }
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease-in-out;
+        }
+        .glass:hover {
+            transform: scale(1.05);
+        }
+
+        /* Education Section */
+        .education-timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 3px solid #58a6ff;
+            margin-top: 20px;
+        }
+        .edu-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        .edu-item::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: #58a6ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #58a6ff;
+        }
+        .edu-item h3 {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        .edu-item p {
+            color: #c9d1d9;
+            margin: 5px 0;
+        }
+        .edu-item span {
+            font-size: 0.9rem;
+            color: #58a6ff;
+            font-style: italic;
+        }
+
+        /* Portfolio Section */
+        .portfolio-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card a{
+          color: #1EA5FF;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #58a6ff, 0 0 40px #58a6ff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #161b22;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 60px;
+                background: rgba(13, 17, 23, 0.95);
+                backdrop-filter: blur(10px);
+                width: 200px;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                transition: right 0.5s ease;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+        }
+        </style>
 </head>
 <body>
 
@@ -85,6 +324,62 @@
 
     <!-- JavaScript -->
 
-<script src="main.js"></script>
+<script>      // Custom Cursor
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.pageX + 'px';
+        cursor.style.top = e.pageY + 'px';
+      });
+
+      // Scroll Reveal Animation
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-links a');
+
+      const revealOnScroll = () => {
+        const triggerBottom = window.innerHeight / 5 * 4;
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+          if (sectionTop < triggerBottom) {
+            section.classList.add('show');
+          }
+        });
+      };
+      window.addEventListener('scroll', revealOnScroll);
+
+      // 3-Dot Menu Toggle
+      const menuToggle = document.getElementById('menu-toggle');
+      const navLinksContainer = document.getElementById('nav-links');
+      menuToggle.addEventListener('click', () => {
+        navLinksContainer.classList.toggle('active');
+      });
+     
+
+    function updateVisitorCount() {
+        let todayDate = new Date().toDateString(); // Get today's date as a string
+        let storedDate = localStorage.getItem('lastVisitDate'); // Last visit date
+      
+        let todayVisitors = parseInt(localStorage.getItem('todayVisitors')) || 0;
+        let totalVisitors = parseInt(localStorage.getItem('totalVisitors')) || 0;
+      
+        if (storedDate !== todayDate) {
+          // Reset today's visitor count if the day has changed
+          todayVisitors = 0;
+          localStorage.setItem('lastVisitDate', todayDate);
+        }
+      
+        // Increment counters
+        todayVisitors++;
+        totalVisitors++;
+      
+        // Store updated counts
+        localStorage.setItem('todayVisitors', todayVisitors);
+        localStorage.setItem('totalVisitors', totalVisitors);
+      
+        // Update UI
+        document.getElementById('todayVisitors').textContent = todayVisitors;
+        document.getElementById('totalVisitors').textContent = totalVisitors;
+      }
+      
+      updateVisitorCount();</script>
 </body>
-            </html>
+    </html>
