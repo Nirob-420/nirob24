@@ -338,28 +338,45 @@
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-<script>      // Custom Cursor
-      const cursor = document.getElementById('cursor');
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.pageX + 'px';
-        cursor.style.top = e.pageY + 'px';
-      });
+<script>// Custom Cursor
+const cursor = document.getElementById('cursor');
 
-      // Scroll Reveal Animation
-      const sections = document.querySelectorAll('section');
-      const navLinks = document.querySelectorAll('.nav-links a');
+document.addEventListener('mousemove', (e) => {
+  cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+});
 
-      const revealOnScroll = () => {
-        const triggerBottom = window.innerHeight / 5 * 4;
-        sections.forEach((section) => {
-          const sectionTop = section.getBoundingClientRect().top;
-          if (sectionTop < triggerBottom) {
-            section.classList.add('show');
-          }
-        });
-      };
-      window.addEventListener('scroll', revealOnScroll);
+// Cursor Scaling on Click
+document.addEventListener('mousedown', () => {
+  cursor.classList.add('click');
+});
+document.addEventListener('mouseup', () => {
+  cursor.classList.remove('click');
+});
 
+// Scroll Reveal Animation with Intersection Observer
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+const observer = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        highlightNav(entry.target.id);
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+
+sections.forEach((section) => observer.observe(section));
+
+// Highlight Active Nav Link
+const highlightNav = (id) => {
+  navLinks.forEach((link) => {
+    link.classList.toggle('active', link.getAttribute('href').slice(1) === id);
+  });
+};
       // 3-Dot Menu Toggle
       const menuToggle = document.getElementById('menu-toggle');
       const navLinksContainer = document.getElementById('nav-links');
@@ -407,4 +424,4 @@
 
       </script>
 </body>
-                                                                   </html>
+                    </html>
