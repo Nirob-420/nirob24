@@ -1,57 +1,58 @@
-      // Custom Cursor
-      const cursor = document.getElementById('cursor');
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.pageX + 'px';
-        cursor.style.top = e.pageY + 'px';
-      });
 
-      // Scroll Reveal Animation
-      const sections = document.querySelectorAll('section');
-      const navLinks = document.querySelectorAll('.nav-links a');
+var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 200;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
 
-      const revealOnScroll = () => {
-        const triggerBottom = window.innerHeight / 5 * 4;
-        sections.forEach((section) => {
-          const sectionTop = section.getBoundingClientRect().top;
-          if (sectionTop < triggerBottom) {
-            section.classList.add('show');
-          }
-        });
-      };
-      window.addEventListener('scroll', revealOnScroll);
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
 
-      // 3-Dot Menu Toggle
-      const menuToggle = document.getElementById('menu-toggle');
-      const navLinksContainer = document.getElementById('nav-links');
-      menuToggle.addEventListener('click', () => {
-        navLinksContainer.classList.toggle('active');
-      });
-     
-
-    function updateVisitorCount() {
-        let todayDate = new Date().toDateString(); // Get today's date as a string
-        let storedDate = localStorage.getItem('lastVisitDate'); // Last visit date
-      
-        let todayVisitors = parseInt(localStorage.getItem('todayVisitors')) || 0;
-        let totalVisitors = parseInt(localStorage.getItem('totalVisitors')) || 0;
-      
-        if (storedDate !== todayDate) {
-          // Reset today's visitor count if the day has changed
-          todayVisitors = 0;
-          localStorage.setItem('lastVisitDate', todayDate);
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
         }
-      
-        // Increment counters
-        todayVisitors++;
-        totalVisitors++;
-      
-        // Store updated counts
-        localStorage.setItem('todayVisitors', todayVisitors);
-        localStorage.setItem('totalVisitors', totalVisitors);
-      
-        // Update UI
-        document.getElementById('todayVisitors').textContent = todayVisitors;
-        document.getElementById('totalVisitors').textContent = totalVisitors;
-      }
-      
-      updateVisitorCount()
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+
