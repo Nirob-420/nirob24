@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ᮘ ɪ ʀ o ʙ ツ</title>
-
- <style>        /* Global Styles */
+    <style>
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -67,6 +67,7 @@
             gap: 20px;
             list-style: none;
         }
+        
         .nav-links a {
             padding: 8px 12px;
             position: relative;
@@ -86,7 +87,13 @@
             font-size: 2rem;
             cursor: pointer;
             color: #58a6ff;
+            text-shadow: 0 0 10px rgba(88, 166, 255, 0.8), 0 0 20px rgba(88, 166, 255, 0.8), 0 0 30px rgba(88, 166, 255, 0.8);
             z-index: 1001;
+            transition: text-shadow 0.3s ease-in-out;
+        }
+
+        .menu-toggle:hover {
+            text-shadow: 0 0 20px rgba(88, 166, 255, 1), 0 0 40px rgba(88, 166, 255, 1), 0 0 60px rgba(88, 166, 255, 1);
         }
 
         /* Hero Section */
@@ -96,7 +103,6 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            
             position: relative;
             text-align: center;
             animation: fadeIn 2s ease-in-out forwards;
@@ -119,18 +125,52 @@
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        .typing {
-            font-size: 1.5rem;
-            border-right: 2px solid #58a6ff;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 4s steps(30) infinite alternate;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
 
+        /* Updated Typing Animation */
+      .typing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50px; /* Adjust based on your text size */
+    overflow: hidden;
+    position: relative;
+}
+
+.typing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50px; /* Adjust based on text size */
+    overflow: hidden;
+    position: relative;
+}
+
+.typing {
+    font-size: 1.5rem;
+    border-right: 2px solid #0015FF;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 0;
+    opacity: 1;
+    position: absolute;
+    animation: none;
+    
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes erase {
+    from { width: 100%; }
+    to { width: 0; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
         /* Sections */
         section {
             padding: 80px 20px;
@@ -148,7 +188,6 @@
             background: transparent;
             border-radius: 15px;
             padding: 30px;
-            
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.5s ease-in-out;
         }
@@ -200,7 +239,7 @@
             gap: 20px;
         }
         .card a{
-          color: #1EA5FF;
+            color: #1EA5FF;
         }
         .card {
             background: rgba(255, 255, 255, 0.1);
@@ -219,7 +258,7 @@
             padding: 20px;
             background: #161b22;
         }
-           #particles-js {
+        #particles-js {
             position: fixed;
             width: 100%;
             height: 100vh;
@@ -227,14 +266,26 @@
             z-index: -1;
             top: 0;
             left: 0;
+            pointer-events: none;
+            overflow: hidden;
         }
-
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
+                font-size: 2.5rem;
+                color: #58a6ff;
+                cursor: pointer;
+                text-shadow: 0 0 10px rgba(88, 166, 255, 0.8), 0 0 20px rgba(88, 166, 255, 0.8), 0 0 30px rgba(88, 166, 255, 0.8);
+                z-index: 1001;
+                transition: text-shadow 0.3s ease-in-out;
             }
+
+            .menu-toggle:hover {
+                text-shadow: 0 0 20px rgba(88, 166, 255, 1), 0 0 40px rgba(88, 166, 255, 1), 0 0 60px rgba(88, 166, 255, 1);
+            }
+
             .nav-links {
                 position: fixed;
                 right: -100%;
@@ -250,22 +301,32 @@
                 gap: 20px;
                 transition: right 0.5s ease;
             }
+
             .nav-links.active {
                 right: 0;
             }
+
+            .nav-links a {
+                font-size: 1.5rem;
+                color: #fff;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            .nav-links a:hover {
+                color: #58a6ff;
+            }
         }
-        </style>
+    </style>
 </head>
 <body>
-
     <!-- Custom Cursor -->
     <div class="cursor" id="cursor"></div>
-    
 
     <!-- Navigation -->
     <nav>
         <div class="logo">ᮘ ɪ ʀ o ʙ ツ</div>
-        <div class="menu-toggle" id="menu-toggle">&#x22EE;</div>
+        <div class="menu-toggle" id="menu-toggle">₦</div>
         <ul class="nav-links" id="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -276,12 +337,22 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <img src="j.jpg" alt="Your Photo" class="hero-img">
-        <h1>Hi, I'm ᮘ ɪ ʀ o ʙ ツ</h1>
-        <p class="typing">Web Developer <br>  Creative Thinker | Designer</p>
-    </section>
-
+<section id="home" class="hero">
+  <img src="j.jpg" alt="Your Photo" class="hero-img">
+  <h1>Hi, I'm ᮘ ɪ ʀ o ʙ ツ</h1>
+  <div class="typing-container">
+    <p class="typing" id="typing-text"></p>
+  </div>
+  <div class ="typewrite">
+   
+     <h2>
+    <a href="" class="typewrite" data-period="500"
+      data-type='[ "Hi, I am Nirob", "I am a Developer" , "I am a Designer"]'>
+      <span class="wrap"></span>
+    </a>
+  </h2>
+ </div>
+</section>
     <!-- About Section -->
     <section id="about" class="glass">
         <h2>About Me</h2>
@@ -321,14 +392,8 @@
         <p>Email: <a href="mailto:aminurrashid1976@gmail.com">aminurrashid1976@gmail.com</a></p>
         <p>WhatsApp: <a href="https://wa.me/8801870516299">+880 1870-516299</a></p>
     </section>
-  
-     
-    <!-- hitwebcounter Code START -->
 
-                                    
-       <div id="particles-js"></div>
-
-
+    <div id="particles-js"></div>
 
     <!-- Footer -->
     <footer>
@@ -337,91 +402,8 @@
 
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="scr.js">src.js</script>
+    <script src="main.js">main.js</script>
 
-<script>// Custom Cursor
-const cursor = document.getElementById('cursor');
-
-document.addEventListener('mousemove', (e) => {
-  cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-});
-
-// Cursor Scaling on Click
-document.addEventListener('mousedown', () => {
-  cursor.classList.add('click');
-});
-document.addEventListener('mouseup', () => {
-  cursor.classList.remove('click');
-});
-
-// Scroll Reveal Animation with Intersection Observer
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.nav-links a');
-
-const observer = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-        highlightNav(entry.target.id);
-      }
-    });
-  },
-  { threshold: 0.3 }
-);
-
-sections.forEach((section) => observer.observe(section));
-
-// Highlight Active Nav Link
-const highlightNav = (id) => {
-  navLinks.forEach((link) => {
-    link.classList.toggle('active', link.getAttribute('href').slice(1) === id);
-  });
-};
-      // 3-Dot Menu Toggle
-      const menuToggle = document.getElementById('menu-toggle');
-      const navLinksContainer = document.getElementById('nav-links');
-      menuToggle.addEventListener('click', () => {
-        navLinksContainer.classList.toggle('active');
-      });
-     
-
-    async function updateVisitorCount() {
-        try {
-          let response = await fetch('counter.php'); // Fetch data from PHP file
-          let data = await response.json();
-      
-          document.getElementById('todayVisitors').textContent = data.todayVisitors;
-          document.getElementById('totalVisitors').textContent = data.totalVisitors;
-        } catch (error) {
-          console.error("Error fetching visitor count:", error);
-        }
-      }
-      
-      updateVisitorCount();
-      
-      particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#58a6ff" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.5, "random": true },
-            "size": { "value": 3, "random": true },
-            "line_linked": { "enable": true, "distance": 150, "color": "#58a6ff", "opacity": 0.4, "width": 1 },
-            "move": { "enable": true, "speed": 2 }
-        },
-        "interactivity": {
-            "events": {
-                "onhover": { "enable": true, "mode": "repulse" },
-                "onclick": { "enable": true, "mode": "push" }
-            },
-            "modes": {
-                "repulse": { "distance": 100 },
-                "push": { "particles_nb": 4 }
-            }
-        },
-        "retina_detect": true
-    });
-
-      </script>
 </body>
                     </html>
