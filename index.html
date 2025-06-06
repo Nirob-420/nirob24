@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nirob's Portfolio - Web Developer & Designer">
+    <meta name="description" content="Nirob Ahmed's Portfolio - Web Developer & Designer">
     <meta name="keywords" content="portfolio, nirob, web developer, designer, frontend, UI/UX">
     <meta name="author" content="Nirob ">
+    <link rel="shortcut icon" href="" type="image/x-icon" />
     <title>ᮘ ɪ ʀ o ʙ ツ  | Web Developer & Designer</title>
-    <link rel="shortcut icon" href="hii.png" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -171,35 +172,72 @@
         }
 
         /* Custom Cursor */
-        .cursor {
-            width: 25px;
-            height: 25px;
-            border: 2px solid var(--primary);
-            background: transparent;
-            border-radius: 50%;
-            position: fixed;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            mix-blend-mode: difference;
-            z-index: 9999;
-            transition: 
-                transform 0.15s ease-out, 
-                width 0.3s ease, 
-                height 0.3s ease,
-                background 0.3s ease;
-        }
-
-        .cursor.active {
-            transform: translate(-50%, -50%) scale(1.5);
-            background: var(--primary);
-            opacity: 0.5;
-        }
-
-        .cursor.click {
-            transform: translate(-50%, -50%) scale(0.8);
-            background: var(--accent);
-        }
-
+  .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: transparent;
+      border: 2px solid var(--primary);
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition:
+          transform 0.15s ease-out,
+          width 0.3s ease,
+          height 0.3s ease,
+          background 0.3s ease,
+          border-color 0.3s ease;
+  }
+  
+  .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(108, 99, 255, 0.2);
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease-out;
+      transition-property: width, height, background;
+  }
+  
+  .cursor.active {
+      transform: translate(-50%, -50%) scale(1.5);
+      background: var(--primary);
+      opacity: 0.5;
+  }
+  
+  .cursor.click {
+      transform: translate(-50%, -50%) scale(0.8);
+      background: var(--accent);
+      border-color: var(--accent);
+  }
+  
+  .cursor.hover-text {
+      transform: translate(-50%, -50%) scale(2);
+      background: transparent;
+      border-color: white;
+  }
+  
+  .cursor-follower.hover-text {
+      transform: translate(-50%, -50%) scale(1.5);
+      background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .cursor-follower.active {
+      width: 60px;
+      height: 60px;
+      background: rgba(108, 99, 255, 0.1);
+  }
+  
+  .cursor-follower.click {
+      width: 30px;
+      height: 30px;
+      background: rgba(255, 101, 132, 0.2);
+  }
         /* Navbar */
         nav {
             position: fixed;
@@ -1450,8 +1488,8 @@
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor" id="cursor"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursor-follower"></div>
 
     <!-- Navigation -->
     <nav id="navbar">
@@ -1882,35 +1920,59 @@
             mirror: false
         });
 
-        // Custom Cursor
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Add active class to cursor when hovering over interactive elements
-        const interactiveElements = document.querySelectorAll(
-            'a, button, .portfolio-item, .skill-item, .contact-card, .timeline-content, .testimonial-card'
-        );
-        
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('active');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('active');
-            });
-        });
-
-        // Add click effect to cursor
-        document.addEventListener('mousedown', () => {
-            cursor.classList.add('click');
-        });
-        document.addEventListener('mouseup', () => {
-            cursor.classList.remove('click');
-        });
-
+        // Advanced Custom Cursor
+  const cursor = document.getElementById('cursor');
+  const cursorFollower = document.getElementById('cursor-follower');
+  
+  document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      
+      // Follower cursor with delay
+      setTimeout(() => {
+          cursorFollower.style.left = e.clientX + 'px';
+          cursorFollower.style.top = e.clientY + 'px';
+      }, 100);
+  });
+  
+  // Add active class to cursor when hovering over interactive elements
+  const interactiveElements = document.querySelectorAll(
+      'a, button, .portfolio-item, .skill-item, .contact-card, .timeline-content, .testimonial-card, input, textarea'
+  );
+  
+  interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+          cursor.classList.add('active');
+          cursorFollower.classList.add('active');
+      });
+      el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('active');
+          cursorFollower.classList.remove('active');
+      });
+  });
+  
+  // Add text hover effect
+  const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, p, li, .section-title, .logo-text');
+  textElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+          cursor.classList.add('hover-text');
+          cursorFollower.classList.add('hover-text');
+      });
+      el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('hover-text');
+          cursorFollower.classList.remove('hover-text');
+      });
+  });
+  
+  // Add click effect to cursor
+  document.addEventListener('mousedown', () => {
+      cursor.classList.add('click');
+      cursorFollower.classList.add('click');
+  });
+  document.addEventListener('mouseup', () => {
+      cursor.classList.remove('click');
+      cursorFollower.classList.remove('click');
+  });
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
