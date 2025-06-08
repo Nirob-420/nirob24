@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nirob Ahmed's Portfolio - Web Developer & Designer">
-    <meta name="keywords" content="portfolio, nirob, web developer, designer, frontend, UI/UX">
+    <meta name="description" content="Nirob's Portfolio - Web Developer & Designer">
+    <meta name="keywords" content="portfolio, nirob,al Nasif MD nirob, web developer, designer, frontend, UI/UX">
     <meta name="author" content="Nirob ">
-    <link rel="shortcut icon" href="" type="image/x-icon" />
-    <title>ᮘ ɪ ʀ o ʙ ツ  | Web Developer & Designer</title>
+    <meta property="og:title" content="Nirob  | Web Developer & Designer">
+    <meta property="og:description" content="Professional portfolio showcasing my web development and design work">
+    <meta property="og:image" content="https://example.com/preview.jpg">
+    <meta property="og:url" content="https://example.com">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>ᮘ ɪ ʀ o ʙ ツ | Web Developer & Designer</title>
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
+    <!-- Critical CSS -->
     <style>
-        /* Modern CSS Variables */
+        /* Critical above-the-fold styles */
         :root {
             --primary: #6C63FF;
             --primary-light: rgba(108, 99, 255, 0.2);
@@ -35,26 +36,16 @@
             --success: #2ECC71;
             --warning: #F39C12;
             --danger: #E74C3C;
-            
             --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --transition-fast: all 0.2s ease;
             --glass: rgba(255, 255, 255, 0.08);
             --glass-border: rgba(255, 255, 255, 0.15);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.4);
             --text-gradient: linear-gradient(135deg, var(--primary), var(--accent));
-            
-            --border-radius: 12px;
-            --border-radius-lg: 20px;
-            --border-radius-xl: 30px;
         }
 
-        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
         }
 
         body {
@@ -63,9 +54,104 @@
             color: var(--light);
             overflow-x: hidden;
             line-height: 1.7;
-            position: relative;
         }
 
+        /* Initial loading animation */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader-inner {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .preloader-spinner {
+            width: 100%;
+            height: 100%;
+            border: 5px solid transparent;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .preloader-spinner::before,
+        .preloader-spinner::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 5px solid transparent;
+        }
+
+        .preloader-spinner::before {
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border-top-color: var(--accent);
+            animation: spin 2s linear infinite reverse;
+        }
+
+        .preloader-spinner::after {
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            bottom: 25px;
+            border-top-color: var(--secondary);
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navbar initial styles */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 26, 0.8);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.8rem 3rem;
+            z-index: 999;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 0.5s 0.3s forwards;
+        }
+
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    
+    <!-- Deferred non-critical CSS -->
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <style id="deferred-styles">
+        /* Full CSS from original code goes here */
+        /* This would contain all the remaining styles from your original code */
+        /* For brevity, I'm including just the first few sections - in reality you'd include everything */
+
+        /* Base Styles */
         h1, h2, h3, h4, h5 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
@@ -82,6 +168,7 @@
         img {
             max-width: 100%;
             height: auto;
+            display: block;
         }
 
         section {
@@ -172,89 +259,74 @@
         }
 
         /* Custom Cursor */
-  .cursor {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: transparent;
-      border: 2px solid var(--primary);
-      pointer-events: none;
-      mix-blend-mode: difference;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition:
-          transform 0.15s ease-out,
-          width 0.3s ease,
-          height 0.3s ease,
-          background 0.3s ease,
-          border-color 0.3s ease;
-  }
-  
-  .cursor-follower {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(108, 99, 255, 0.2);
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: all 0.3s ease-out;
-      transition-property: width, height, background;
-  }
-  
-  .cursor.active {
-      transform: translate(-50%, -50%) scale(1.5);
-      background: var(--primary);
-      opacity: 0.5;
-  }
-  
-  .cursor.click {
-      transform: translate(-50%, -50%) scale(0.8);
-      background: var(--accent);
-      border-color: var(--accent);
-  }
-  
-  .cursor.hover-text {
-      transform: translate(-50%, -50%) scale(2);
-      background: transparent;
-      border-color: white;
-  }
-  
-  .cursor-follower.hover-text {
-      transform: translate(-50%, -50%) scale(1.5);
-      background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .cursor-follower.active {
-      width: 60px;
-      height: 60px;
-      background: rgba(108, 99, 255, 0.1);
-  }
-  
-  .cursor-follower.click {
-      width: 30px;
-      height: 30px;
-      background: rgba(255, 101, 132, 0.2);
-  }
-        /* Navbar */
-        nav {
+        .cursor {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 15, 26, 0.8);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.8rem 3rem;
-            z-index: 999;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid var(--primary);
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition:
+                transform 0.15s ease-out,
+                width 0.3s ease,
+                height 0.3s ease,
+                background 0.3s ease,
+                border-color 0.3s ease;
+        }
+        
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(108, 99, 255, 0.2);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease-out;
+            transition-property: width, height, background;
+        }
+        
+        .cursor.active {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: var(--primary);
+            opacity: 0.5;
+        }
+        
+        .cursor.click {
+            transform: translate(-50%, -50%) scale(0.8);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .cursor.hover-text {
+            transform: translate(-50%, -50%) scale(2);
+            background: transparent;
+            border-color: white;
+        }
+        
+        .cursor-follower.hover-text {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .cursor-follower.active {
+            width: 60px;
+            height: 60px;
+            background: rgba(108, 99, 255, 0.1);
+        }
+        
+        .cursor-follower.click {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 101, 132, 0.2);
         }
 
+        /* Navbar */
         nav.scrolled {
             padding: 1.2rem 3rem;
             background: rgba(15, 15, 26, 0.95);
@@ -1488,8 +1560,16 @@
     </style>
 </head>
 <body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-follower" id="cursor-follower"></div>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
 
     <!-- Navigation -->
     <nav id="navbar">
@@ -1526,14 +1606,14 @@
                         <a href="#portfolio" class="btn btn-outline">View My Work</a>
                     </div>
                     <div class="social-links">
-                        <a href="https://github.com/Nirob-420" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://www.instagram.com/_nirob_hex?igsh=MXdkdWt2Y2hxbHZtdg==" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/Nirob-420" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.instagram.com/_nirob_hex?igsh=MXdkdWt2Y2hxbHZtdg==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
                 <div class="hero-img-container" data-aos="fade-left" data-aos-duration="1000">
-                    <img src="me.jpg" alt="Nirob Ahmed" class="hero-img">
+                    <img src="me.jpg" alt="Nirob " class="hero-img" loading="lazy">
                 </div>
             </div>
         </div>
@@ -1547,7 +1627,6 @@
                 <div class="about-text" data-aos="fade-right">
                     <p>I am an enthusiastic web developer and designer, with expertise in building modern, responsive websites and web applications. My journey in web development began several years ago, and since then I have been constantly learning and improving my skills.</p>
                     <p>I specialize in front-end development using HTML, CSS, JavaScript, and various frameworks. I believe in writing clean, efficient code and creating intuitive user experiences that delight users.</p>
-                   
                     
                     <h3 style="margin: 40px 0 20px;">My Skills</h3>
                     <div class="skills-container">
@@ -1566,7 +1645,6 @@
                             <h3>JavaScript</h3>
                             <p>Interactive Web Experiences</p>
                         </div>
-
                         <div class="skill-item" data-aos="zoom-in" data-aos-delay="500">
                             <i class="fas fa-paint-brush"></i>
                             <h3>UI/UX Design</h3>
@@ -1580,7 +1658,7 @@
                     </div>
                 </div>
                 <div class="about-img" data-aos="fade-left">
-                    <img src="fn.jpg" alt="About Nirob Ahmed">
+                    <img src="fn.jpg" alt="About Nirob " loading="lazy">
                 </div>
             </div>
             
@@ -1589,7 +1667,6 @@
                     <div class="stat-number" id="projects-count">12</div>
                     <div class="stat-text">Projects Completed</div>
                 </div>
-
                 <div class="stat-item">
                     <div class="stat-number" id="experience-count">3</div>
                     <div class="stat-text">Years of Experience</div>
@@ -1618,7 +1695,7 @@
                     <div class="timeline-content">
                         <h3>High School</h3>
                         <p>Science Stream - Jalalabad Cantonment Public School and College</p>
-                        <p>Currently pursuing my higher secondary education in Science with a focus on  Science and Mathematics.</p>
+                        <p>Currently pursuing my higher secondary education in Science with a focus on Science and Mathematics.</p>
                     </div>
                 </div>
                 <div class="timeline-item" data-aos="fade-right">
@@ -1647,125 +1724,123 @@
             <div class="portfolio-grid">
                 <!-- TEAM HEX -->
                 <div class="portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="hex.jpg" alt="TEAM HEX" class="portfolio-img">
+                    <img src="hex.jpg" alt="TEAM HEX" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>TEAM HEX</h3>
                         <p>Professional team portfolio with modern design and interactive elements.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/teamhex/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/teamhex" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/teamhex/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/teamhex" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Advance IT, Sylhet -->
                 <div class="portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="250">
-                    <img src="advance.jpg" alt="Advance IT" class="portfolio-img">
+                    <img src="advance.jpg" alt="Advance IT" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Advance IT, Sylhet</h3>
                         <p>Professional IT training institute with course information and resources.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/advenceit/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/advenceit" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/advenceit/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/advenceit" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Sylhet Model Nursing -->
                 <div class="portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="smnc.jpg" alt="Nursing Institute" class="portfolio-img">
+                    <img src="smnc.jpg" alt="Nursing Institute" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Sylhet Model Nursing</h3>
                         <p>Educational institution website for nursing and midwifery students.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/smnc/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/smnc" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/smnc/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/smnc" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Parallax scroll animation -->
                 <div class="portfolio-item" data-category="ui" data-aos="zoom-in" data-aos-delay="350">
-                    <img src="animation.jpg" alt="Parallax Animation" class="portfolio-img">
+                    <img src="animation.jpg" alt="Parallax Animation" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Parallax Scroll Animation</h3>
                         <p>Interactive website with smooth parallax scrolling visual effects.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/nbscroll/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/nbscroll" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/nbscroll/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/nbscroll" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- TEAM HYPER Guild -->
                 <div class="portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="400">
-                    <img src="hyper.jpg" alt="TEAM HYPER" class="portfolio-img">
+                    <img src="hyper.jpg" alt="TEAM HYPER" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>TEAM HYPER Guild</h3>
                         <p>Gaming community portal with team profiles and tournament info.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/NIROB-PROJECT-/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/NIROB-PROJECT-" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/NIROB-PROJECT-/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/NIROB-PROJECT-" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Amazon Name Matchmaker -->
                 <div class="portfolio-item" data-category="app" data-aos="zoom-in" data-aos-delay="450">
-                    <img src="wow.jpg" alt="Name Matchmaker" class="portfolio-img">
+                    <img src="wow.jpg" alt="Name Matchmaker" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Name Initial Matchmaker</h3>
                         <p>Amazon-style name compatibility checker with interactive UI.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/gb/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/gb" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/gb/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/gb" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Advanced NIROB Animation -->
                 <div class="portfolio-item" data-category="ui" data-aos="zoom-in" data-aos-delay="500">
-                    <img src="nb.jpg" alt="NIROB Animation" class="portfolio-img">
+                    <img src="nb.jpg" alt="NIROB Animation" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Advanced NIROB Animation</h3>
                         <p>Creative animation showcase with dynamic visual elements.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/nb/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/nb" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/nb/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/nb" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- nb codes -->
                 <div class="portfolio-item" data-category="app" data-aos="zoom-in" data-aos-delay="550">
-                    <img src="hake.jpg" alt="nb codes" class="portfolio-img">
+                    <img src="hake.jpg" alt="nb codes" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>nb codes</h3>
                         <p>Interactive coding showcase with hacker-style design elements.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/nbHacker/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/nbHacker" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/nbHacker/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/nbHacker" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Birthday Wish -->
                 <div class="portfolio-item" data-category="web" data-aos="zoom-in" data-aos-delay="600">
-                    <img src="birthday.jpg" alt="Birthday Wish" class="portfolio-img">
+                    <img src="birthday.jpg" alt="Birthday Wish" class="portfolio-img" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Birthday Wish</h3>
                         <p>Interactive birthday celebration website with animations.</p>
                         <div class="portfolio-links">
-                            <a href="https://nirob-420.github.io/Birthday-gift/" target="_blank"><i class="fas fa-link"></i></a>
-                            <a href="https://github.com/nirob-420/Birthday-gift" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://nirob-420.github.io/Birthday-gift/" target="_blank" aria-label="Live Demo"><i class="fas fa-link"></i></a>
+                            <a href="https://github.com/nirob-420/Birthday-gift" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
 
     <!-- Contact Section -->
     <section id="contact">
@@ -1833,18 +1908,9 @@
                 </div>
             </div>
             
-<div class="location-container">
-    <div class="location-header">
-        <div class="scooter-icon"></div>
-        <div class="location-title">Fabiha House Location</div>
-    </div>
-    <div class="location-address">
-        <p><strong>Address:</strong> WXMQ+MP6 Fabiha House, Ghaterchoti</p>
-    </div>
-    <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.518722909107!2d91.989311!3d24.93416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDU2JzAzLjAiTiA5McKwNTknMjEuNSJF!5e0!3m2!1sen!2sbd!4v1620000000000!5m2!1sen!2sbd" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
-</div>
+            <div class="map-container" data-aos="fade-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.518722909107!2d91.989311!3d24.93416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDU2JzAzLjAiTiA5McKwNTknMjEuNSJF!5e0!3m2!1sen!2sbd!4v1620000000000!5m2!1sen!2sbd" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
     </section>
 
@@ -1856,10 +1922,10 @@
                     <h3>Nirob </h3>
                     <p>A passionate web developer and designer creating modern, responsive websites with cutting-edge technologies.</p>
                     <div class="social-links" style="justify-content: flex-start; margin: 20px 0;">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/Nirob-420" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/_nirob_hex?igsh=MXdkdWt2Y2hxbHZtdg==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -1890,16 +1956,16 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#home" class="back-to-top" id="back-to-top">
+    <a href="#home" class="back-to-top" id="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </a>
 
     <!-- TEAM HEX Notification -->
     <div class="notification" id="teamhex-notification">
         <div class="notification-content">
-            <p><img src="lol.png"> TEAM HEX</p>
+            <p><img src="lol.png" alt="TEAM HEX Logo"> TEAM HEX</p>
             <a href="https://teamhex.netlify.app/" target="_blank" class="btn btn-primary">Visit Now</a>
-            <button class="close-notification">&times;</button>
+            <button class="close-notification" aria-label="Close notification">&times;</button>
         </div>
     </div>
 
@@ -1912,6 +1978,15 @@
     
     <!-- Main JavaScript -->
     <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+
         // Initialize AOS Animation
         AOS.init({
             duration: 800,
@@ -1921,58 +1996,59 @@
         });
 
         // Advanced Custom Cursor
-  const cursor = document.getElementById('cursor');
-  const cursorFollower = document.getElementById('cursor-follower');
-  
-  document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      
-      // Follower cursor with delay
-      setTimeout(() => {
-          cursorFollower.style.left = e.clientX + 'px';
-          cursorFollower.style.top = e.clientY + 'px';
-      }, 100);
-  });
-  
-  // Add active class to cursor when hovering over interactive elements
-  const interactiveElements = document.querySelectorAll(
-      'a, button, .portfolio-item, .skill-item, .contact-card, .timeline-content, .testimonial-card, input, textarea'
-  );
-  
-  interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-          cursor.classList.add('active');
-          cursorFollower.classList.add('active');
-      });
-      el.addEventListener('mouseleave', () => {
-          cursor.classList.remove('active');
-          cursorFollower.classList.remove('active');
-      });
-  });
-  
-  // Add text hover effect
-  const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, p, li, .section-title, .logo-text');
-  textElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-          cursor.classList.add('hover-text');
-          cursorFollower.classList.add('hover-text');
-      });
-      el.addEventListener('mouseleave', () => {
-          cursor.classList.remove('hover-text');
-          cursorFollower.classList.remove('hover-text');
-      });
-  });
-  
-  // Add click effect to cursor
-  document.addEventListener('mousedown', () => {
-      cursor.classList.add('click');
-      cursorFollower.classList.add('click');
-  });
-  document.addEventListener('mouseup', () => {
-      cursor.classList.remove('click');
-      cursorFollower.classList.remove('click');
-  });
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Follower cursor with delay
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+        
+        // Add active class to cursor when hovering over interactive elements
+        const interactiveElements = document.querySelectorAll(
+            'a, button, .portfolio-item, .skill-item, .contact-card, .timeline-content, .testimonial-card, input, textarea'
+        );
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('active');
+                cursorFollower.classList.add('active');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('active');
+                cursorFollower.classList.remove('active');
+            });
+        });
+        
+        // Add text hover effect
+        const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, p, li, .section-title, .logo-text');
+        textElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover-text');
+                cursorFollower.classList.add('hover-text');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover-text');
+                cursorFollower.classList.remove('hover-text');
+            });
+        });
+        
+        // Add click effect to cursor
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+            cursorFollower.classList.add('click');
+        });
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+            cursorFollower.classList.remove('click');
+        });
+
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -2020,7 +2096,7 @@
 
         // Typing animation
         const typingText = document.getElementById('typing-text');
-        const phrases = ["Web Developer", "UI/UX Designer", "Frontmant Developer", "Student", "Freelancer"];
+        const phrases = ["Web Developer", "UI/UX Designer", "Frontend Developer", "Student", "Freelancer"];
         let i = 0;
         let j = 0;
         let currentPhrase = [];
@@ -2114,9 +2190,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     animateCounter('projects-count', 12);
-                    animateCounter('clients-count', 18);
                     animateCounter('experience-count', 3);
-                    animateCounter('coffee-count', 500);
                     observer.unobserve(entry.target);
                 }
             });
@@ -2253,7 +2327,7 @@
             "retina_detect": true
         });
 
-        // Show notification after 1 minute (60000 milliseconds)
+        // Show notification after 5 seconds
         setTimeout(function() {
             const notification = document.getElementById('teamhex-notification');
             notification.classList.add('show');
@@ -2267,7 +2341,34 @@
             setTimeout(function() {
                 notification.classList.remove('show');
             }, 15000);
-        }, 1000);
+        }, 5000);
+
+        // Service Worker Registration for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful');
+                }).catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+
+        // Web App Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show custom install button or notification
+            showInstallPromotion();
+        });
+
+        function showInstallPromotion() {
+            // You could show a custom install button here
+            console.log('App can be installed');
+        }
     </script>
 </body>
 </html>
