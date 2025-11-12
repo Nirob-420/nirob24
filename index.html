@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "3a124436-eed3-4b9a-b0e4-dbc14a7ae04f",
-      safari_web_id: "web.onesignal.auto.458f9dc8-6677-4788-b5a2-9d66a9d7a179",
-      notifyButton: {
-        enable: true,
-      },
-    });
-  });
-</script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "3a124436-eed3-4b9a-b0e4-dbc14a7ae04f",
+          safari_web_id: "web.onesignal.auto.458f9dc8-6677-4788-b5a2-9d66a9d7a179",
+          notifyButton: {
+            enable: true,
+          },
+        });
+      });
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nirob's Portfolio - Web Developer & Designer">
     <meta name="keywords" content="portfolio, nirob,al Nasif MD nirob,al nasif md nirob ,Al Nasif MD Nirob, web developer, designer, frontend, UI/UX">
@@ -53,12 +53,21 @@
             --glass: rgba(255, 255, 255, 0.08);
             --glass-border: rgba(255, 255, 255, 0.15);
             --text-gradient: linear-gradient(135deg, var(--primary), var(--accent));
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+            --border-radius-xl: 30px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -160,10 +169,6 @@
     <!-- Deferred non-critical CSS -->
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <style id="deferred-styles">
-        /* Full CSS from original code goes here */
-        /* This would contain all the remaining styles from your original code */
-        /* For brevity, I'm including just the first few sections - in reality you'd include everything */
-
         /* Base Styles */
         h1, h2, h3, h4, h5 {
             font-family: 'Montserrat', sans-serif;
@@ -645,6 +650,615 @@
             opacity: 1;
         }
 
+        /* NEW FEATURE: Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .theme-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* NEW FEATURE: Dark Mode Styles */
+        body.light-mode {
+            --dark: #f8f9fa;
+            --darker: #e9ecef;
+            --light: #495057;
+            --lighter: #212529;
+            --glass: rgba(0, 0, 0, 0.05);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .hero::before {
+            background: radial-gradient(circle at center, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+        }
+
+        body.light-mode .personal-info-section::before {
+            background: radial-gradient(circle at center, rgba(108, 99, 255, 0.05) 0%, transparent 70%);
+        }
+
+        /* NEW FEATURE: Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 100px;
+            z-index: 1000;
+            background: var(--glass);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .music-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .music-artist {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* NEW FEATURE: Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary-light);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* NEW FEATURE: Interactive Background */
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* NEW FEATURE: Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--text-gradient);
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+
+        /* NEW FEATURE: Text Effect */
+        .text-effect {
+            position: relative;
+            display: inline-block;
+        }
+
+        .text-effect::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--text-gradient);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.5s ease;
+        }
+
+        .text-effect:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* NEW FEATURE: Glitch Effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--primary);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(42px, 9999px, 44px, 0);
+            }
+            5% {
+                clip: rect(12px, 9999px, 59px, 0);
+            }
+            10% {
+                clip: rect(48px, 9999px, 29px, 0);
+            }
+            15% {
+                clip: rect(42px, 9999px, 73px, 0);
+            }
+            20% {
+                clip: rect(63px, 9999px, 27px, 0);
+            }
+            25% {
+                clip: rect(34px, 9999px, 55px, 0);
+            }
+            30% {
+                clip: rect(86px, 9999px, 73px, 0);
+            }
+            35% {
+                clip: rect(20px, 9999px, 20px, 0);
+            }
+            40% {
+                clip: rect(26px, 9999px, 60px, 0);
+            }
+            45% {
+                clip: rect(25px, 9999px, 66px, 0);
+            }
+            50% {
+                clip: rect(57px, 9999px, 98px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 46px, 0);
+            }
+            60% {
+                clip: rect(82px, 9999px, 31px, 0);
+            }
+            65% {
+                clip: rect(54px, 9999px, 27px, 0);
+            }
+            70% {
+                clip: rect(28px, 9999px, 99px, 0);
+            }
+            75% {
+                clip: rect(45px, 9999px, 69px, 0);
+            }
+            80% {
+                clip: rect(23px, 9999px, 85px, 0);
+            }
+            85% {
+                clip: rect(54px, 9999px, 84px, 0);
+            }
+            90% {
+                clip: rect(45px, 9999px, 47px, 0);
+            }
+            95% {
+                clip: rect(37px, 9999px, 20px, 0);
+            }
+            100% {
+                clip: rect(4px, 9999px, 91px, 0);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(65px, 9999px, 100px, 0);
+            }
+            5% {
+                clip: rect(52px, 9999px, 74px, 0);
+            }
+            10% {
+                clip: rect(79px, 9999px, 85px, 0);
+            }
+            15% {
+                clip: rect(75px, 9999px, 5px, 0);
+            }
+            20% {
+                clip: rect(67px, 9999px, 61px, 0);
+            }
+            25% {
+                clip: rect(14px, 9999px, 79px, 0);
+            }
+            30% {
+                clip: rect(1px, 9999px, 66px, 0);
+            }
+            35% {
+                clip: rect(86px, 9999px, 30px, 0);
+            }
+            40% {
+                clip: rect(23px, 9999px, 98px, 0);
+            }
+            45% {
+                clip: rect(85px, 9999px, 72px, 0);
+            }
+            50% {
+                clip: rect(71px, 9999px, 75px, 0);
+            }
+            55% {
+                clip: rect(2px, 9999px, 48px, 0);
+            }
+            60% {
+                clip: rect(30px, 9999px, 16px, 0);
+            }
+            65% {
+                clip: rect(59px, 9999px, 50px, 0);
+            }
+            70% {
+                clip: rect(41px, 9999px, 62px, 0);
+            }
+            75% {
+                clip: rect(2px, 9999px, 82px, 0);
+            }
+            80% {
+                clip: rect(47px, 9999px, 73px, 0);
+            }
+            85% {
+                clip: rect(3px, 9999px, 27px, 0);
+            }
+            90% {
+                clip: rect(26px, 9999px, 55px, 0);
+            }
+            95% {
+                clip: rect(42px, 9999px, 97px, 0);
+            }
+            100% {
+                clip: rect(38px, 9999px, 49px, 0);
+            }
+        }
+
+        /* NEW FEATURE: Hover 3D Effect */
+        .hover-3d {
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .hover-3d:hover {
+            transform: perspective(1000px) rotateY(10deg) rotateX(5deg) translateZ(20px);
+        }
+
+        /* NEW FEATURE: Gradient Text Animation */
+        .gradient-text {
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary), var(--primary));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 8s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* NEW FEATURE: Animated Button */
+        .animated-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animated-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .animated-btn:hover::before {
+            left: 100%;
+        }
+
+        /* NEW FEATURE: Matrix Rain Effect */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -3;
+            opacity: 0.1;
+        }
+
+        /* NEW FEATURE: Tilt Effect */
+        .tilt-element {
+            transition: transform 0.2s ease;
+        }
+
+        /* NEW FEATURE: Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NEW FEATURE: Loading Animation for Images */
+        .lazy-img {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .lazy-img.loaded {
+            opacity: 1;
+        }
+
+      /* NEW FEATURE: Chat Bot */
+        .chat-bot {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chat-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--text-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(108, 99, 255, 0.4);
+            transition: var(--transition);
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .chat-message.bot {
+            background: var(--primary-light);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-message.user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+        }
+
+        .chat-input button {
+            padding: 10px 15px;
+            border-radius: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 15px;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        .whatsapp-connect {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #25D366;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .whatsapp-connect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
         /* About Section */
         .about-content {
             display: flex;
@@ -785,6 +1399,293 @@
         .stat-text {
             font-size: 1.1rem;
             color: var(--light);
+        }
+
+        /* Personal Information Section Styles */
+        .personal-info-section {
+            background: var(--darker);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .personal-info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .personal-info-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .personal-info-text {
+            padding-right: 30px;
+        }
+
+        .personal-info-card {
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .personal-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--lighter);
+        }
+
+        .info-content p {
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        .info-content a {
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .info-content a:hover {
+            color: var(--accent);
+        }
+
+        .info-highlight {
+            background: var(--primary-light);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Age Counter Styles */
+        .age-counter {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            background: rgba(15, 15, 26, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .age-unit {
+            text-align: center;
+            flex: 1;
+        }
+
+        .age-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            line-height: 1;
+        }
+
+        .age-label {
+            font-size: 0.8rem;
+            color: var(--light);
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Free Fire Section Styles */
+        .freefire-section {
+            background: var(--darker);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .freefire-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 101, 132, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .freefire-content {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .player-profile {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .player-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.5);
+        }
+
+        .player-info h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ff6584, #ff3333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            background: rgba(15, 15, 26, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        /* Gameplay Videos Section */
+        .gameplay-section {
+            margin-top: 60px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .video-card {
+            background: var(--glass);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--lighter);
+        }
+
+        .video-info p {
+            color: var(--light);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: var(--light);
+            opacity: 0.7;
+            font-size: 0.85rem;
         }
 
         /* Education Section */
@@ -1455,6 +2356,15 @@
                 flex-direction: column;
             }
             
+            .personal-info-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .personal-info-text {
+                padding-right: 0;
+            }
+            
             .timeline::before {
                 left: 30px;
             }
@@ -1485,6 +2395,19 @@
                 right: auto;
                 left: -15px;
                 border-width: 0 0 1px 1px;
+            }
+            
+            .theme-switcher, .music-player {
+                display: none;
+            }
+
+            .player-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .player-stats {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -1533,6 +2456,15 @@
             .notification {
                 max-width: 280px;
             }
+            
+            .chat-window {
+                width: 280px;
+                height: 350px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1569,6 +2501,23 @@
             .testimonial-card {
                 min-width: 280px;
             }
+            
+            .personal-info-card {
+                padding: 25px;
+            }
+            
+            .age-counter {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .age-unit {
+                flex: none;
+            }
+
+            .player-stats {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1579,6 +2528,18 @@
             <div class="preloader-spinner"></div>
         </div>
     </div>
+
+    <!-- NEW FEATURE: Progress Bar -->
+    <div class="progress-bar" id="progress-bar"></div>
+
+    <!-- NEW FEATURE: Interactive Background -->
+    <div class="interactive-bg" id="interactive-bg"></div>
+
+    <!-- NEW FEATURE: Matrix Rain -->
+    <canvas class="matrix-rain" id="matrix-rain"></canvas>
+
+    <!-- NEW FEATURE: Floating Elements -->
+    <div class="floating-elements" id="floating-elements"></div>
 
     <!-- Custom Cursor -->
     <div class="cursor" id="cursor"></div>
@@ -1598,11 +2559,72 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="#home" class="active">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#personal-info">Personal Info</a></li>
+            <li><a href="#freefire">Free Fire</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
+
+    <!-- NEW FEATURE: Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-btn" id="theme-toggle" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="theme-btn" id="color-picker" title="Change Color">
+            <i class="fas fa-palette"></i>
+        </button>
+    </div>
+
+    <!-- NEW FEATURE: Music Player -->
+    <div class="music-player" id="music-player">
+        <div class="music-info">
+            <div class="music-title">No Music Playing</div>
+            <div class="music-artist">Select a track</div>
+        </div>
+        <div class="music-controls">
+            <button class="music-btn" id="prev-btn">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="music-btn" id="play-btn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="music-btn" id="next-btn">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- NEW FEATURE: Chat Bot with WhatsApp Integration -->
+    <div class="chat-bot">
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <i class="fas fa-robot"></i>
+                <span>Nirob Assistant</span>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="chat-message bot">
+                    Hi! I'm Nirob's assistant. How can I help you today?
+                    <div class="message-time" id="bot-time"></div>
+                </div>
+            </div>
+            <div class="typing-indicator" id="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button id="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <div class="chat-btn" id="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -1615,15 +2637,10 @@
                     </div>
                     <p>A passionate web developer and designer creating modern, responsive websites with cutting-edge technologies.</p>
                     <div class="hero-btns">
-                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                        <a href="#portfolio" class="btn btn-outline">View My Work</a>
+                        <a href="#contact" class="btn btn-primary animated-btn">Get In Touch</a>
+                        <a href="#portfolio" class="btn btn-outline animated-btn">View My Work</a>
                     </div>
-                    <div class="social-links">
-                        <a href="https://github.com/Nirob-420" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://www.instagram.com/_nirob_hex?igsh=MXdkdWt2Y2hxbHZtdg==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    </div>
+
                 </div>
                 <div class="hero-img-container" data-aos="fade-left" data-aos-duration="1000">
                     <img src="me.jpg" alt="Nirob " class="hero-img" loading="lazy">
@@ -1639,7 +2656,7 @@
             <div class="about-content">
                 <div class="about-text" data-aos="fade-right">
                     <p>I am an enthusiastic web developer and designer, with expertise in building modern, responsive websites and web applications. My journey in web development began several years ago, and since then I have been constantly learning and improving my skills.</p>
-                    <p>I specialize in front-end development using HTML, CSS, JavaScript, and various frameworks. I believe in writing clean, efficient code and creating intuitive user experiences that delight users.</p>
+                    <p>I specialize in front-end development using HTML, CSS.. I believe in writing clean, efficient code and creating intuitive user experiences that delight users.</p>
                     
                     <h3 style="margin: 40px 0 20px;">My Skills</h3>
                     <div class="skills-container">
@@ -1687,277 +2704,191 @@
             </div>
         </div>
     </section>
-<!-- Free Fire Section -->
-<section id="freefire" class="freefire-section">
-    <div class="container">
-        <h2 class="section-title">Free Fire E-Sports</h2>
-        <div class="freefire-content">
-            <div class="player-profile">
-                <img src="ff.png" alt="Free Fire Player" class="player-image">
-                <div class="player-info">
-                    <h3>I Am Free Fire E-Sports Player</h3>
-                    <p>I am a passionate Free Fire e-sports player and supporter. My journey in competitive gaming has been filled with exciting challenges and memorable victories. Here are some of my best gameplay clips that showcase my skills and strategies.</p>
-                    
 
-
-                    </div>
+    <!-- Personal Information Section -->
+    <section id="personal-info" class="personal-info-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Personal Information</h2>
+            <div class="personal-info-content">
+                <div class="personal-info-text" data-aos="fade-right">
+                    <h3 style="font-size: 2.2rem; margin-bottom: 20px;">About <span class="text-gradient">Nirob</span></h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 25px;">Hi! My name is Nirob, and I'm 14 years old. I study in class 9 at JCPSC and proudly serve as a BNCC cadet. I always try to be a good student and work hard to achieve my goals. I come from Tahirpur, Sunamganj, a place I'm really proud of.</p>
+                    <p style="margin-bottom: 20px;">My hobbies are photography and cycling, which help me see the world from new perspectives and enjoy nature. My biggest dream is to become an engineer and travel the world to explore new places and learn new things. I believe that with hard work and dedication, I can make all my dreams come true.</p>
                 </div>
-            </div>
-            
-            <div class="gameplay-section">
-                <h3 class="text-gradient" style="font-size: 2rem; margin-bottom: 30px;">My Best Gameplay Clips</h3>
-                
-                <div class="video-grid">
-                    <!-- Video 1 -->
-                    <div class="video-card">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Free Fire gameplay clip 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <h4>Squad Wipe in Tournament Match</h4>
-                            <p>Eliminated an entire squad solo with perfect timing and positioning.</p>
-                            <div class="video-meta">
-                                <span><i class="fas fa-eye"></i> 12K views</span>
-                                <span><i class="far fa-thumbs-up"></i> 1.2K</span>
+                <div class="personal-info-card" data-aos="fade-left">
+                    <h3 style="margin-bottom: 30px; font-size: 1.8rem;">Personal Details</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Full Name</h4>
+                                <p>Al Nasif MD Nirob</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Video 2 -->
-                    <div class="video-card">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Free Fire gameplay clip 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <h4>Clutch Victory</h4>
-                            <p></p>
-                            <div class="video-meta">
-                                <span><i class="fas fa-eye"></i> 8.7K views</span>
-                                <span><i class="far fa-thumbs-up"></i> 950</span>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Date of Birth</h4>
+                                <p>December 1, 2010</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Video 3 -->
-                    <div class="video-card">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Free Fire gameplay clip 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Current Age</h4>
+                                <div class="age-counter" id="age-counter">
+                                    <div class="age-unit">
+                                        <span class="age-value" id="age-years">13</span>
+                                        <span class="age-label">Years</span>
+                                    </div>
+                                    <div class="age-unit">
+                                        <span class="age-value" id="age-months">6</span>
+                                        <span class="age-label">Months</span>
+                                    </div>
+                                    <div class="age-unit">
+                                        <span class="age-value" id="age-days">15</span>
+                                        <span class="age-label">Days</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="video-info">
-                            <h4>Best Move</h4>
-                            <p></p>
-                            <div class="video-meta">
-                                <span><i class="fas fa-eye"></i> 15K views</span>
-                                <span><i class="far fa-thumbs-up"></i> 1.8K</span>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Location</h4>
+                                <p>Sylhet, Bangladesh</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Email</h4>
+                                <p><a href="mailto:aminurrashid1976@gmail.com">aminurrashid1976@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Phone</h4>
+                                <p><a href="tel:+8801870516299">+880 1870-516299</a></p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Languages</h4>
+                                <p>Bangla (Native), English (Fluent)</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Nationality</h4>
+                                <p>Bangladeshi</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Interests</h4>
+                                <p>Web Development, UI/UX Design, Free Fire E-Sports, Photography</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<style>
-    /* Free Fire Section Styles */
-    .freefire-section {
-        background: var(--darker);
-        padding: 100px 0;
-        position: relative;
-        overflow: hidden;
-    }
+    <!-- Free Fire Section -->
+    <section id="freefire" class="freefire-section">
+        <div class="container">
+            <h2 class="section-title">Free Fire E-Sports</h2>
+            <div class="freefire-content">
+                <div class="player-profile">
+                    <img src="ff.png" alt="Free Fire Player" class="player-image">
+                    <div class="player-info">
+                        <h3>I Am Free Fire E-Sports Player</h3>
+                        <p>I am a passionate Free Fire e-sports player and supporter. My journey in competitive gaming has been filled with exciting challenges and memorable victories. Here are some of my best gameplay clips that showcase my skills and strategies.</p>
+                        
 
-    .freefire-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(255, 101, 132, 0.1) 0%, transparent 70%);
-        z-index: 0;
-    }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gameplay-section">
+                    <h3 class="text-gradient" style="font-size: 2rem; margin-bottom: 30px;">Our Gameplay Clips</h3>
+                    
+                    <div class="video-grid">
+                        <!-- Video 1 -->
+                        <div class="video-card">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/T4bSZyN__D4" title="Free Fire gameplay clip 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-info">
+                                <h4>Squad Wipe in Tournament Match</h4>
+                                <p>Eliminated an entire squad solo with perfect timing and positioning.</p>
+                                <div class="video-meta">
+                                    <span><i class="fas fa-eye"></i> 12K views</span>
+                                    <span><i class="far fa-thumbs-up"></i> 1.2K</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Video 2 -->
+                        <div class="video-card">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/tmQrSzo28RU" title="Free Fire gameplay clip 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-info">
+                                <h4>Clutch Victory</h4>
+                                <p>Final moments of a ranked match with a spectacular finish.</p>
+                                <div class="video-meta">
+                                    <span><i class="fas fa-eye"></i> 8.7K views</span>
+                                    <span><i class="far fa-thumbs-up"></i> 950</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Video 3 -->
+                        <div class="video-card">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/WSIrh732oR0" title="Free Fire gameplay clip 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-info">
+                                <h4>Best Move</h4>
+                                <p>Strategic gameplay showing advanced tactics and teamwork.</p>
+                                <div class="video-meta">
+                                    <span><i class="fas fa-eye"></i> 15K views</span>
+                                    <span><i class="far fa-thumbs-up"></i> 1.8K</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    .freefire-content {
-        display: flex;
-        flex-direction: column;
-        gap: 60px;
-    }
-
-    .player-profile {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        background: var(--glass);
-        border-radius: 20px;
-        padding: 40px;
-        border: 1px solid var(--glass-border);
-        position: relative;
-        z-index: 1;
-    }
-
-    .player-image {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 5px solid var(--primary);
-        box-shadow: 0 0 30px rgba(108, 99, 255, 0.5);
-    }
-
-    .player-info h3 {
-        font-size: 2rem;
-        margin-bottom: 15px;
-        background: linear-gradient(135deg, #ff6584, #ff3333);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .player-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-    }
-
-    .stat-box {
-        background: rgba(15, 15, 26, 0.7);
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        border: 1px solid var(--glass-border);
-    }
-
-    .stat-value {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--accent);
-        margin-bottom: 5px;
-    }
-
-    .stat-label {
-        font-size: 0.9rem;
-        color: var(--light);
-        opacity: 0.8;
-    }
-
-    /* Gameplay Videos Section */
-    .gameplay-section {
-        margin-top: 60px;
-    }
-
-    .video-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
-    }
-
-    .video-card {
-        background: var(--glass);
-        border-radius: 15px;
-        overflow: hidden;
-        border: 1px solid var(--glass-border);
-        transition: var(--transition);
-    }
-
-    .video-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        border-color: var(--primary);
-    }
-
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%; /* 16:9 Aspect Ratio */
-        overflow: hidden;
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-
-    .video-info {
-        padding: 20px;
-    }
-
-    .video-info h4 {
-        font-size: 1.3rem;
-        margin-bottom: 10px;
-        color: var(--lighter);
-    }
-
-    .video-info p {
-        color: var(--light);
-        opacity: 0.8;
-        font-size: 0.9rem;
-    }
-
-    .video-meta {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 15px;
-        color: var(--light);
-        opacity: 0.7;
-        font-size: 0.85rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 992px) {
-        .player-profile {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .player-stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 576px) {
-        .player-stats {
-            grid-template-columns: 1fr;
-        }
-        
-        .video-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .section-title {
-            font-size: 2.2rem;
-        }
-    }
-</style>
-
-<script>
-    // Function to replace YouTube video IDs
-    function setupYouTubeVideos() {
-        // Replace these with your actual YouTube video IDs
-        const videoIds = [
-            'T4bSZyN__D4', // Example ID 1 - replace with your video ID
-            'tmQrSzo28RU', // Example ID 2 - replace with your video ID
-            'WSIrh732oR0'  // Example ID 3 - replace with your video ID
-        ];
-        
-        const iframes = document.querySelectorAll('.video-container iframe');
-        
-        iframes.forEach((iframe, index) => {
-            if (videoIds[index]) {
-                iframe.src = `https://www.youtube.com/embed/${videoIds[index]}`;
-            }
-        });
-    }
-    
-    // Call the function when the page loads
-    document.addEventListener('DOMContentLoaded', setupYouTubeVideos);
-</script>
     <!-- Education Section -->
     <section id="education">
         <div class="container">
@@ -2216,6 +3147,7 @@
                     <ul class="footer-links">
                         <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="#about"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="#personal-info"><i class="fas fa-chevron-right"></i> Personal Info</a></li>
                         <li><a href="#education"><i class="fas fa-chevron-right"></i> Education</a></li>
                         <li><a href="#portfolio"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
                         <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
@@ -2276,6 +3208,292 @@
             easing: 'ease-in-out',
             once: true,
             mirror: false
+        });
+
+        // NEW FEATURE: Progress Bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // NEW FEATURE: Theme Switcher
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // NEW FEATURE: Color Picker
+        const colorPicker = document.getElementById('color-picker');
+        colorPicker.addEventListener('click', function() {
+            const colors = ['#6C63FF', '#FF6584', '#2ECC71', '#F39C12', '#9B59B6', '#1ABC9C'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.documentElement.style.setProperty('--primary', randomColor);
+            
+            // Update gradient
+            const newGradient = `linear-gradient(135deg, ${randomColor}, var(--accent))`;
+            document.documentElement.style.setProperty('--text-gradient', newGradient);
+            
+            localStorage.setItem('primaryColor', randomColor);
+        });
+
+        // Load saved color
+        const savedColor = localStorage.getItem('primaryColor');
+        if (savedColor) {
+            document.documentElement.style.setProperty('--primary', savedColor);
+            const newGradient = `linear-gradient(135deg, ${savedColor}, var(--accent))`;
+            document.documentElement.style.setProperty('--text-gradient', newGradient);
+        }
+
+        // NEW FEATURE: Music Player
+        const musicPlayer = document.getElementById('music-player');
+        const playBtn = document.getElementById('play-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const musicTitle = document.querySelector('.music-title');
+        const musicArtist = document.querySelector('.music-artist');
+        
+        const tracks = [
+            {
+                title: 'Dreams',
+                artist: 'NEFFEX',
+                src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+            },
+            {
+                title: 'Ambient',
+                artist: 'Background Music',
+                src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
+            },
+            {
+                title: 'Chill Vibes',
+                artist: 'Lo-Fi',
+                src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            }
+        ];
+        
+        let currentTrack = 0;
+        let audio = new Audio(tracks[currentTrack].src);
+        let isPlaying = false;
+        
+        function updateTrackInfo() {
+            musicTitle.textContent = tracks[currentTrack].title;
+            musicArtist.textContent = tracks[currentTrack].artist;
+        }
+        
+        playBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                audio.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        prevBtn.addEventListener('click', function() {
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            audio.src = tracks[currentTrack].src;
+            updateTrackInfo();
+            if (isPlaying) {
+                audio.play();
+            }
+        });
+        
+        nextBtn.addEventListener('click', function() {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            audio.src = tracks[currentTrack].src;
+            updateTrackInfo();
+            if (isPlaying) {
+                audio.play();
+            }
+        });
+        
+        updateTrackInfo();
+
+        // NEW FEATURE: Floating Elements
+        const floatingElements = document.getElementById('floating-elements');
+        for (let i = 0; i < 15; i++) {
+            const element = document.createElement('div');
+            element.classList.add('floating-element');
+            
+            const size = Math.random() * 60 + 20;
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 10 + 15;
+            
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            element.style.left = `${left}%`;
+            element.style.top = `${top}%`;
+            element.style.animationDelay = `${delay}s`;
+            element.style.animationDuration = `${duration}s`;
+            
+            floatingElements.appendChild(element);
+        }
+
+        // NEW FEATURE: Interactive Background
+        const interactiveBg = document.getElementById('interactive-bg');
+        document.addEventListener('mousemove', function(e) {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            interactiveBg.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(108, 99, 255, 0.1) 0%, transparent 50%)`;
+        });
+
+        // NEW FEATURE: Matrix Rain
+        const matrixCanvas = document.getElementById('matrix-rain');
+        const ctx = matrixCanvas.getContext('2d');
+        
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        
+        const chars = '01';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = matrixCanvas.width / fontSize;
+        
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(15, 15, 26, 0.04)';
+            ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            
+            ctx.fillStyle = '#6C63FF';
+            ctx.font = `${fontSize}px monospace`;
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+
+        // NEW FEATURE: Chat Bot with WhatsApp Integration
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const chatBody = document.getElementById('chat-body');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const botTime = document.getElementById('bot-time');
+        
+        // Set initial bot message time
+        botTime.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        
+        chatToggle.addEventListener('click', function() {
+            chatWindow.classList.toggle('active');
+        });
+        
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            messageDiv.classList.add(isUser ? 'user' : 'bot');
+            
+            const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            messageDiv.innerHTML = `
+                ${text}
+                <div class="message-time">${time}</div>
+            `;
+            
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'flex';
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+        
+        // WhatsApp Integration Function
+        function connectToWhatsApp(message) {
+            const phoneNumber = "8801870516299";
+            const encodedMessage = encodeURIComponent(`Message from Portfolio Website: ${message}`);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+        
+        function handleUserMessage() {
+            const message = chatInput.value.trim();
+            if (message === '') return;
+            
+            addMessage(message, true);
+            chatInput.value = '';
+            
+            showTypingIndicator();
+            
+            // Simulate bot response
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                const responses = [
+                    "Thanks for your message! I'll get back to you soon.",
+                    "That's interesting! I'd love to discuss this further.",
+                    "I appreciate you reaching out. Let's connect on WhatsApp for a detailed conversation.",
+                    "Great question! For immediate assistance, let's continue this conversation on WhatsApp."
+                ];
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomResponse);
+                
+                // Add WhatsApp connect button
+                setTimeout(() => {
+                    const whatsappBtn = document.createElement('div');
+                    whatsappBtn.classList.add('whatsapp-connect');
+                    whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Continue on WhatsApp';
+                    whatsappBtn.addEventListener('click', function() {
+                        connectToWhatsApp(message);
+                    });
+                    
+                    const lastMessage = chatBody.lastElementChild;
+                    lastMessage.appendChild(whatsappBtn);
+                }, 500);
+            }, 1500);
+        }
+        
+        sendBtn.addEventListener('click', handleUserMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleUserMessage();
+            }
         });
 
         // Advanced Custom Cursor
@@ -2652,6 +3870,97 @@
             // You could show a custom install button here
             console.log('App can be installed');
         }
+
+        // Age Calculator
+        function calculateAge() {
+            const birthDate = new Date(2010, 11, 1); // December 1, 2010 (months are 0-indexed)
+            const currentDate = new Date();
+            
+            let years = currentDate.getFullYear() - birthDate.getFullYear();
+            let months = currentDate.getMonth() - birthDate.getMonth();
+            let days = currentDate.getDate() - birthDate.getDate();
+            
+            // Adjust for negative days
+            if (days < 0) {
+                months--;
+                // Get the number of days in the previous month
+                const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                days = lastDayOfMonth - birthDate.getDate() + currentDate.getDate();
+            }
+            
+            // Adjust for negative months
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            // Update the age display
+            document.getElementById('age-years').textContent = years;
+            document.getElementById('age-months').textContent = months;
+            document.getElementById('age-days').textContent = days;
+        }
+        
+        // Update age every second
+        setInterval(calculateAge, 1000);
+        
+        // Calculate age immediately on page load
+        calculateAge();
+
+        // NEW FEATURE: Scroll Reveal Animation
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+        
+        const scrollRevealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        scrollRevealElements.forEach(el => {
+            scrollRevealObserver.observe(el);
+        });
+
+        // NEW FEATURE: Lazy Loading Images
+        const lazyImages = document.querySelectorAll('.lazy-img');
+        
+        const lazyImageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    lazyImageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        lazyImages.forEach(img => {
+            lazyImageObserver.observe(img);
+        });
+
+        // NEW FEATURE: Tilt Effect
+        const tiltElements = document.querySelectorAll('.tilt-element');
+        
+        tiltElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleX = (y - centerY) / 10;
+                const angleY = (centerX - x) / 10;
+                
+                el.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
     </script>
 </body>
 </html>
