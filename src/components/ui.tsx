@@ -441,18 +441,9 @@ export const WhatsappIcon = ({ className = "h-5 w-5" }: { className?: string }) 
   </svg>
 );
 
-/* ---------- Image helper: takes all pics without bncc from nirob120.netlify.app ---------- */
-export const NETLIFY_URL = "https://nirob120.netlify.app";
-
-export const getImageUrl = (file: string) => {
-  // All images except bncc come directly from nirob120.netlify.app
-  if (file.toLowerCase().includes("bncc")) {
-    return `/nirob/${file}`;
-  }
-  return `${NETLIFY_URL}/${file}`;
-};
-
-export const asset = (file: string) => getImageUrl(file);
+/* ---------- Site images are bundled locally under public/nirob ---------- */
+export const getImageUrl = (file: string) => `/nirob/${file}`;
+export const asset = getImageUrl;
 
 export function SiteImage({
   file,
@@ -460,35 +451,7 @@ export function SiteImage({
   className = "",
   ...rest
 }: { file: string; alt: string; className?: string } & Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src" | "alt" | "className">) {
-  const isBncc = file.toLowerCase().includes("bncc");
-  // Primary URL is directly nirob120.netlify.app for all photos, except bncc which is local
-  const primary = isBncc ? `/nirob/${file}` : `${NETLIFY_URL}/${file}`;
-  const [src, setSrc] = useState(primary);
-  const [attempt, setAttempt] = useState(0);
-
-  return (
-    <img
-      {...rest}
-      src={src}
-      alt={alt}
-      className={className}
-      onError={() => {
-        if (attempt === 0) {
-          // If primary fails, fallback to local /nirob/${file}
-          setSrc(isBncc ? `/bncc.jpg` : `/nirob/${file}`);
-          setAttempt(1);
-        } else if (attempt === 1) {
-          // Second fallback: root /${file}
-          setSrc(isBncc ? `nirob/bncc.jpg` : `/${file}`);
-          setAttempt(2);
-        } else if (attempt === 2 && !isBncc) {
-          // Third fallback: relative nirob/${file}
-          setSrc(`nirob/${file}`);
-          setAttempt(3);
-        }
-      }}
-    />
-  );
+  return <img {...rest} src={getImageUrl(file)} alt={alt} className={className} />;
 }
 
 /* ---------- Chapter divider: number wipes in, rule draws across ---------- */

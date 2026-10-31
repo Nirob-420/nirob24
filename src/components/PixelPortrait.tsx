@@ -298,7 +298,7 @@ export default function PixelPortrait({
     };
 
     const load = async () => {
-      for (const src of ["https://nirob120.netlify.app/yes.jpg", "/nirob/yes.jpg", "nirob/yes.jpg", "public/nirob/yes.jpg"]) {
+      for (const src of ["/nirob/yes.jpg"]) {
         try {
           const loaded = await decode(src);
           if (disposed) return;

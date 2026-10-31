@@ -10,7 +10,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const img = new Image();
-    img.src = "https://nirob120.netlify.app/yes.jpg";
+    img.src = "/nirob/yes.jpg";
     const c = animate(0, 100, {
       duration: 2.4,
       ease: [0.65, 0, 0.35, 1],
