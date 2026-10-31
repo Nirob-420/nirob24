@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nirob120.netlify.app/sitemap.xml
