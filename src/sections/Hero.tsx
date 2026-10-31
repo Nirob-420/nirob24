@@ -3,11 +3,9 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from "fram
 import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
 import { ease, scrollToId } from "../lib";
 import { Magnetic, SiteImage } from "../components/ui";
-import PixelPortrait from "../components/PixelPortrait";
 
 export function Hero({ ready }: { ready: boolean }) {
   const ref = useRef<HTMLElement>(null);
-  const [replay, setReplay] = useState(0);
   const fitRef = useRef<HTMLSpanElement>(null);
   const [fit, setFit] = useState(1);
   useLayoutEffect(() => {
@@ -26,8 +24,6 @@ export function Hero({ ready }: { ready: boolean }) {
     return () => { cancelAnimationFrame(raf); window.clearTimeout(t); window.removeEventListener("resize", measure); };
   }, []);
   const [hoverName, setHoverName] = useState(false);
-  const portraitRef = useRef<HTMLDivElement>(null);
-  const [pixelOk, setPixelOk] = useState(false);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const scrollSpring = useSpring(scrollYProgress, { stiffness: 90, damping: 24, restDelta: 0.0005 });
 
@@ -113,13 +109,12 @@ export function Hero({ ready }: { ready: boolean }) {
               animate={ready ? { scale: 1 } : {}}
               transition={{ duration: 2.1, ease, delay: 0.2 }}
             >
-              <SiteImage file="yes.jpg" alt="Al Nasif MD Nirob — web developer and designer" className="h-full w-full object-cover object-[50%_24%] transition-opacity duration-1000" style={{ opacity: pixelOk ? 0.85 : 1 }} />
+              <SiteImage file="yes.jpg" alt="Al Nasif MD Nirob — web developer and designer" className="h-full w-full object-cover object-[50%_24%]" />
             </motion.div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/55" />
                         <div className="pointer-events-none absolute inset-x-0 top-[13%] h-px bg-white/20" />
           </motion.div>
 
-          <PixelPortrait anchorRef={portraitRef} ready={ready} replay={replay} onResult={setPixelOk} />
 
           <div className="pointer-events-none absolute inset-x-0 top-[9%] z-40 flex justify-center font-mono text-[8px] uppercase tracking-[0.4em] text-white/60">Since 2010</div>
 
@@ -157,9 +152,8 @@ export function Hero({ ready }: { ready: boolean }) {
         <motion.h1
           style={{ y: nameY }}
           aria-label="Nirob"
-          onMouseEnter={() => { setHoverName(true); setReplay((r) => r + 1); }}
+          onMouseEnter={() => setHoverName(true)}
           onMouseLeave={() => setHoverName(false)}
-          onClick={() => setReplay((r) => r + 1)}
           className={`relative flex w-full cursor-pointer select-none items-baseline justify-center overflow-x-clip whitespace-nowrap text-[22vw] md:text-[14rem] lg:text-[18rem] ${nameType}`}
         >
           <span ref={fitRef} className="inline-flex items-baseline" style={{ transform: `scale(${fit})`, transformOrigin: "center" }}>
@@ -206,9 +200,6 @@ export function Hero({ ready }: { ready: boolean }) {
               <span className="font-light italic text-gray-300">— <span className="hidden sm:inline">UI/UX & </span>motion</span>
             </p>
             <p className="mt-1 hidden font-mono text-[9px] uppercase tracking-[0.2em] text-white/35 lg:block">Class 10 · Cadet Sgt · JCPSC Junior Platoon</p>
-            <p className="mt-1.5 hidden font-mono text-[8px] uppercase tracking-[0.2em] text-white/25 lg:block">
-              {pixelOk ? "Pixel portrait — hover my name to rebuild" : "Assembling the pixels…"}
-            </p>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 22 }} animate={ready ? { opacity: 1, y: 0 } : {}} transition={{ delay: 1.25, duration: 0.8, ease }} className="flex shrink-0 items-center gap-1.5 md:gap-4">
