@@ -94,7 +94,6 @@ export function Hero({ ready }: { ready: boolean }) {
       >
         <motion.div
           style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 1200 }}
-          ref={portraitRef}
           className="relative h-[41svh] w-[62vw] max-w-[440px] sm:h-[46svh] sm:w-[38vw] lg:h-[56svh] lg:w-auto lg:aspect-[3/4]"
         >
           <div className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent)_20%,transparent),transparent_70%)] blur-2xl" />
