@@ -1,7 +1,6 @@
 # Nirob — Portfolio
 
 Personal portfolio for **Al Nasif MD Nirob** — web developer & designer.
-Live content reference: https://nirob120.netlify.app
 Contact: alnasifmdnirob@gmail.com · Instagram [@nir0b__](https://www.instagram.com/nir0b__) · GitHub [Nirob-420](https://github.com/Nirob-420)
 
 Black & white editorial design, React 19 + Vite 7 + Tailwind 4, Framer Motion, Lenis smooth
@@ -53,27 +52,11 @@ If the Actions tab shows no workflow, check that `.github/workflows/deploy.yml` 
 
 ## 3. Your photos
 
-All photos are inside the repo, so GitHub serves them directly — no other website needed.
+All supplied images are stored locally under `public/nirob/` and served by the site — no third-party image host is required.
 
-```
-public/nirob/yes.jpg        portrait (homepage + about)
-public/nirob/hii.png        crest / avatar
-public/nirob/ff.png         Team Hex logo
-public/nirob/photo.jpg      extra profile shot
-public/nirob/hex.jpg        project screenshots:
-public/nirob/advance.jpg    advance.jpg  smnc.jpg  animation.jpg  hyper.jpg
-public/nirob/wow.jpg        wow.jpg  nb.jpg  hake.jpg  birthday.jpg
-public/nirob/smnc.jpg
-public/nirob/animation.jpg
-public/nirob/hyper.jpg
-public/nirob/wow.jpg
-public/nirob/nb.jpg
-public/nirob/hake.jpg
-public/nirob/birthday.jpg
-```
+Included files: `advance.jpg`, `animation.jpg`, `birthday.jpg`, `ff.png`, `hake.jpg`, `hex.jpg`, `hii.png`, `hyper.jpg`, `nb.jpg`, `niba.jpg`, `smnc.jpg`, `wow.jpg`, and `yes.jpg`.
 
-To change a photo, replace the file with the same name and push.
-Paths are relative (`nirob/yes.jpg`), so they work at any URL.
+To change an image, replace the matching file in `public/nirob/` and push. Image paths use `/nirob/<filename>`.
 
 ### Cadet photo
 1. Save your parade photo as **`public/nirob/bncc.jpg`**
