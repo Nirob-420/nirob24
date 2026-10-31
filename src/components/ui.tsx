@@ -361,8 +361,8 @@ export function RotatingBadge({ text, children, size = 160, className = "" }: { 
 export function Cursor() {
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
-  const rx = useSpring(x, { stiffness: 180, damping: 20, mass: 0.4 });
-  const ry = useSpring(y, { stiffness: 180, damping: 20, mass: 0.4 });
+  const rx = useSpring(x, { stiffness: 220, damping: 24, mass: 0.35 });
+  const ry = useSpring(y, { stiffness: 220, damping: 24, mass: 0.35 });
   const [label, setLabel] = useState<string | null>(null);
   const [hover, setHover] = useState(false);
   const [hidden, setHidden] = useState(true);
@@ -378,10 +378,10 @@ export function Cursor() {
       setHidden(false);
     };
     const over = (e: globalThis.MouseEvent) => {
-      const t = e.target as HTMLElement;
-      const l = t.closest<HTMLElement>("[data-cursor]");
-      setLabel(l ? l.dataset.cursor ?? null : null);
-      setHover(!!t.closest("a, button, input, textarea, [data-hover]"));
+      const target = e.target as HTMLElement;
+      const marked = target.closest<HTMLElement>("[data-cursor]");
+      setLabel(marked ? marked.dataset.cursor ?? null : null);
+      setHover(!!target.closest("a, button, input, textarea, [data-hover]"));
     };
     const leave = () => setHidden(true);
     window.addEventListener("mousemove", move);
@@ -396,27 +396,50 @@ export function Cursor() {
   }, [x, y]);
 
   if (!enabled) return null;
-  const size = label ? 96 : hover ? 56 : 34;
+  const size = label ? 92 : hover ? 48 : 30;
 
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[200] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent"
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[200] grid h-3 w-3 -translate-x-1/2 -translate-y-1/2 place-items-center"
         style={{ x, y, opacity: hidden || label ? 0 : 1 }}
-      />
+        transition={{ duration: 0.18, ease }}
+      >
+        <span className="absolute h-3 w-3 rotate-45 rounded-[3px] bg-accent shadow-[0_0_18px_color-mix(in_srgb,var(--accent)_80%,transparent)]" />
+        <span className="relative h-1 w-1 rounded-full bg-white" />
+      </motion.div>
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[199] grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full"
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[199] grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border"
         style={{ x: rx, y: ry, opacity: hidden ? 0 : 1 }}
         animate={{
           width: size,
           height: size,
-          backgroundColor: label ? "var(--accent)" : "rgba(0,0,0,0)",
-          borderColor: label ? "var(--accent)" : hover ? "var(--accent)" : "rgba(236,235,230,0.35)",
+          borderColor: label || hover ? "var(--accent)" : "rgba(244,242,236,0.35)",
+          backgroundColor: label ? "color-mix(in srgb, var(--accent) 16%, rgba(8,8,8,0.84))" : "rgba(8,8,8,0)",
+          scale: hover || label ? 1.04 : 1,
         }}
-        transition={{ duration: 0.35, ease }}
+        transition={{ duration: 0.28, ease }}
       >
-        <div className="absolute inset-0 rounded-full border" style={{ borderColor: "inherit" }} />
-        {label && <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink">{label}</span>}
+        <motion.span
+          className="absolute inset-[4px] rounded-full border border-dashed border-white/30"
+          animate={{ rotate: hover || label ? 360 : 0, opacity: hover || label ? 0.85 : 0.45 }}
+          transition={{ rotate: { duration: 8, repeat: hover || label ? Infinity : 0, ease: "linear" }, opacity: { duration: 0.2 } }}
+        />
+        <span className="absolute left-1/2 top-[-3px] h-1.5 w-1.5 -translate-x-1/2 rounded-sm bg-accent shadow-[0_0_10px_var(--accent)]" />
+        {label ? (
+          <motion.span
+            key={label}
+            initial={{ opacity: 0, y: 4, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="max-w-[72px] px-2 text-center font-mono text-[9px] font-semibold uppercase leading-tight tracking-[0.12em] text-bone"
+          >
+            {label}
+          </motion.span>
+        ) : (
+          <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
+        )}
       </motion.div>
     </>
   );
