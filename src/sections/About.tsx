@@ -118,9 +118,48 @@ function Flip({ value }: { value: string }) {
   );
 }
 
+function LiveAgeTicker() {
+  const age = getAge(profile.birth, useNow());
+  return (
+    <FadeUp delay={0.25}>
+      <div className="relative overflow-hidden rounded-[2rem] bg-ink p-7 text-bone md:p-10">
+        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
+        <div className="relative flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-mute">
+          <span>Current Age</span>
+          <span className="flex items-center gap-2 text-bone">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-bone" /> Live
+          </span>
+        </div>
+        <div className="relative mt-6 grid grid-cols-3 gap-4">
+          {[
+            { v: age.years, l: "Years" },
+            { v: age.months, l: "Months" },
+            { v: age.days, l: "Days" },
+          ].map((x) => (
+            <div key={x.l}>
+              <p className="font-display text-4xl font-extrabold leading-none sm:text-5xl md:text-7xl">
+                <Flip value={pad(x.v)} />
+              </p>
+              <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-accent">{x.l}</p>
+            </div>
+          ))}
+        </div>
+        <div className="relative mt-6 flex items-center gap-3 border-t border-white/10 pt-5 font-mono text-xl tabular-nums md:text-2xl">
+          <Flip value={pad(age.hours)} />
+          <span className="animate-pulse text-accent">:</span>
+          <Flip value={pad(age.minutes)} />
+          <span className="animate-pulse text-accent">:</span>
+          <Flip value={pad(age.seconds)} />
+          <span className="ml-auto text-[10px] uppercase tracking-[0.2em] text-mute">& counting</span>
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
+
 export function PersonalInfo() {
-  const now = useNow();
-  const age = getAge(profile.birth, now);
+  // The biography only needs the age in years; keep its large section static between renders.
+  const age = getAge(profile.birth, new Date());
   const details = [
     { k: "Full Name", v: profile.fullName },
     { k: "Date of Birth", v: profile.birthLabel },
@@ -157,40 +196,7 @@ export function PersonalInfo() {
               ))}
             </FadeUp>
 
-            {/* live age */}
-            <FadeUp delay={0.25}>
-              <div className="relative overflow-hidden rounded-[2rem] bg-ink p-7 text-bone md:p-10">
-                <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/25 blur-3xl" />
-                <div className="relative flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-mute">
-                  <span>Current Age</span>
-                  <span className="flex items-center gap-2 text-bone">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-bone" /> Live
-                  </span>
-                </div>
-                <div className="relative mt-6 grid grid-cols-3 gap-4">
-                  {[
-                    { v: age.years, l: "Years" },
-                    { v: age.months, l: "Months" },
-                    { v: age.days, l: "Days" },
-                  ].map((x) => (
-                    <div key={x.l}>
-                      <p className="font-display text-4xl font-extrabold leading-none sm:text-5xl md:text-7xl">
-                        <Flip value={pad(x.v)} />
-                      </p>
-                      <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-accent">{x.l}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="relative mt-6 flex items-center gap-3 border-t border-white/10 pt-5 font-mono text-xl tabular-nums md:text-2xl">
-                  <Flip value={pad(age.hours)} />
-                  <span className="animate-pulse text-accent">:</span>
-                  <Flip value={pad(age.minutes)} />
-                  <span className="animate-pulse text-accent">:</span>
-                  <Flip value={pad(age.seconds)} />
-                  <span className="ml-auto text-[10px] uppercase tracking-[0.2em] text-mute">& counting</span>
-                </div>
-              </div>
-            </FadeUp>
+            <LiveAgeTicker />
           </div>
 
           <div>

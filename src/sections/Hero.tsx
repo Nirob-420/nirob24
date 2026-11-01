@@ -108,7 +108,7 @@ export function Hero({ ready }: { ready: boolean }) {
               animate={ready ? { scale: 1 } : {}}
               transition={{ duration: 2.1, ease, delay: 0.2 }}
             >
-              <SiteImage file="yes.jpg" alt="Al Nasif MD Nirob — web developer and designer" className="h-full w-full object-cover object-[50%_24%]" />
+              <SiteImage file="yes.jpg" alt="Al Nasif MD Nirob — web developer and designer" className="h-full w-full object-cover object-[50%_24%]" loading="eager" fetchPriority="high" />
             </motion.div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/55" />
                         <div className="pointer-events-none absolute inset-x-0 top-[13%] h-px bg-white/20" />

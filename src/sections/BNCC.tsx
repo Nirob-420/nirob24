@@ -289,8 +289,10 @@ export function BNCC() {
               className="absolute -top-[8%] h-[116%] w-full"
             >
               <img
-                src="/nirob/bncc.jpg"
+                src="/nirob/bncc.webp"
                 alt="Al Nasif MD Nirob BNCC parade inspection with Bangladesh Army officer"
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover object-[45%_42%] transition-all duration-700"
                 style={{ filter: grades[selectedGrade].filter }}
               />
@@ -313,7 +315,7 @@ export function BNCC() {
                   }}
                 >
                   <img
-                    src="/nirob/bncc.jpg"
+                    src="/nirob/bncc.webp"
                     alt="Zoomed inspection detail"
                     className="h-full w-full object-cover"
                     style={{ filter: grades[selectedGrade].filter }}
@@ -535,7 +537,7 @@ export function BNCC() {
               {/* Modal Photo Display */}
               <div className="relative aspect-[16/10] w-full max-h-[72vh] overflow-hidden bg-black sm:aspect-[16/9]">
                 <img
-                  src="/nirob/bncc.jpg"
+                  src="/nirob/bncc.webp"
                   alt="Al Nasif MD Nirob BNCC parade inspection in full frame"
                   className="h-full w-full object-contain"
                   style={{ filter: grades[selectedGrade].filter }}

@@ -52,18 +52,18 @@ If the Actions tab shows no workflow, check that `.github/workflows/deploy.yml` 
 
 ## 3. Your photos
 
-All supplied images are stored locally under `public/nirob/` and served by the site — no third-party image host is required.
+All supplied images are stored locally under `public/nirob/` and served by the site — no third-party image host is required. JPEG photos have optimized WebP versions that the site serves for faster loading; the original JPEGs are retained.
 
-Included files: `advance.jpg`, `animation.jpg`, `birthday.jpg`, `ff.png`, `hake.jpg`, `hex.jpg`, `hii.png`, `hyper.jpg`, `nb.jpg`, `niba.jpg`, `smnc.jpg`, `wow.jpg`, and `yes.jpg`.
+Included originals: `advance.jpg`, `animation.jpg`, `birthday.jpg`, `bncc.jpg`, `ff.png`, `hake.jpg`, `hex.jpg`, `hii.png`, `hyper.jpg`, `nb.jpg`, `niba.jpg`, `smnc.jpg`, `wow.jpg`, and `yes.jpg`.
 
-To change an image, replace the matching file in `public/nirob/` and push. Image paths use `/nirob/<filename>`.
+When replacing a JPEG, update both the `.jpg` original and its matching `.webp` optimized file in `public/nirob/`. The shared image helper automatically requests the WebP version. Image paths use `/nirob/<filename>`.
 
 ### Cadet photo
-1. Save your parade photo as **`public/nirob/bncc.jpg`**
+1. Save the source photo as **`public/nirob/bncc.jpg`** and its optimized copy as **`public/nirob/bncc.webp`**
 2. In `src/data.ts` set **`cadetPhoto: true`**
 3. Push. The cadet section will show the photo inside its scroll reveal.
 
-Until then the section shows a designed cadet record and makes no failed request.
+The repository already has `cadetPhoto: true` enabled.
 
 ---
 
