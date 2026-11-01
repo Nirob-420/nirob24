@@ -131,6 +131,7 @@ const SECTION_MORPH: [string, number][] = [
   ["education", 2],
   ["portfolio", 3],
 ];
+const TILT_X = [0, 0.35, 0.5, 1.05] as const;
 
 export default function Scene3D() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -239,50 +240,60 @@ export default function Scene3D() {
     document.addEventListener("pointerleave", onLeave);
 
     const start = performance.now();
-    const tick = () => {
+    let lastFrameTime = start;
+    const tick = (now: number) => {
       raf = requestAnimationFrame(tick);
-      if (document.hidden) return;
+      if (document.hidden) {
+        lastFrameTime = now;
+        return;
+      }
       frame++;
-      const t = (performance.now() - start) / 1000;
+      // Normalize per-frame easing/rotation to 60 Hz so the same animation has
+      // consistent timing on both high-refresh and frame-dropped displays.
+      const delta = Math.min(Math.max(now - lastFrameTime, 0), 50);
+      lastFrameTime = now;
+      const frameScale = delta / (1000 / 60);
+      const easeFactor = (amount: number) => 1 - Math.pow(1 - amount, frameScale);
+      const t = (now - start) / 1000;
       if (frame % 30 === 0) readAccent();
 
       const sy = window.scrollY;
       const vel = sy - lastScroll;
       lastScroll = sy;
-      spin += (Math.min(Math.abs(vel), 80) * 0.0006 - spin) * 0.08;
+      const normalizedVelocity = vel / Math.max(frameScale, 0.001);
+      spin += (Math.min(Math.abs(normalizedVelocity), 80) * 0.0006 - spin) * easeFactor(0.08);
 
-      morph += (targetMorph() - morph) * 0.06;
+      morph += (targetMorph() - morph) * easeFactor(0.06);
       uniforms.uMorph.value = morph;
       uniforms.uTime.value = t;
       const targetOpacity = mobile ? 0.75 : 0.9;
-      uniforms.uOpacity.value = reduced ? targetOpacity : uniforms.uOpacity.value + (targetOpacity - uniforms.uOpacity.value) * 0.02;
+      uniforms.uOpacity.value = reduced ? targetOpacity : uniforms.uOpacity.value + (targetOpacity - uniforms.uOpacity.value) * easeFactor(0.02);
       if (reduced) morph = targetMorph();
 
       // mouse smoothing (snap when far away so it doesn't sweep across)
       if (Math.abs(mouse.tx - mouse.x) > 3) { mouse.x = mouse.tx; mouse.y = mouse.ty; }
-      mouse.x += (mouse.tx - mouse.x) * 0.12;
-      mouse.y += (mouse.ty - mouse.y) * 0.12;
+      mouse.x += (mouse.tx - mouse.x) * easeFactor(0.12);
+      mouse.y += (mouse.ty - mouse.y) * easeFactor(0.12);
       uniforms.uMouse.value.set(mouse.x, mouse.y);
       const px = Math.abs(mouse.tx) > 2 ? 0 : mouse.tx;
       const py = Math.abs(mouse.ty) > 2 ? 0 : mouse.ty;
-      mouse.px += (px - mouse.px) * 0.04;
-      mouse.py += (py - mouse.py) * 0.04;
+      mouse.px += (px - mouse.px) * easeFactor(0.04);
+      mouse.py += (py - mouse.py) * easeFactor(0.04);
 
       // per-shape framing
-      const tiltX = [0, 0.35, 0.5, 1.05];
       const lo = Math.floor(Math.min(2.999, Math.max(0, morph)));
       const f = Math.min(1, Math.max(0, morph - lo));
-      const baseTilt = tiltX[lo] + (tiltX[lo + 1] - tiltX[lo]) * f;
+      const baseTilt = TILT_X[lo] + (TILT_X[lo + 1] - TILT_X[lo]) * f;
 
-      group.rotation.y += 0.0016 + spin;
-      group.rotation.x += (baseTilt - mouse.py * 0.25 - group.rotation.x) * 0.05;
-      group.rotation.z += (mouse.px * 0.12 - group.rotation.z) * 0.05;
+      group.rotation.y += (0.0016 + spin) * frameScale;
+      group.rotation.x += (baseTilt - mouse.py * 0.25 - group.rotation.x) * easeFactor(0.05);
+      group.rotation.z += (mouse.px * 0.12 - group.rotation.z) * easeFactor(0.05);
       group.position.y = Math.sin(t * 0.6) * 0.08;
 
       renderer.render(scene, camera);
       if (reduced) cancelAnimationFrame(raf);
     };
-    tick();
+    tick(start);
 
     return () => {
       cancelAnimationFrame(raf);
