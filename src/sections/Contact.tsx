@@ -221,9 +221,13 @@ export function Contact() {
   );
 }
 
-export function Footer() {
+function FooterClock() {
   const now = useNow();
-  const year = now.getFullYear();
+  return <>{sylhetTime(now)}</>;
+}
+
+export function Footer() {
+  const year = new Date().getFullYear();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
   const y = useTransform(scrollYProgress, [0, 1], ["-35%", "0%"]);
@@ -280,7 +284,7 @@ export function Footer() {
         </div>
         <div>
           <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.22em] text-mute">Local Time</p>
-          <p className="font-display text-3xl font-bold tabular-nums">{sylhetTime(now)}</p>
+          <p className="font-display text-3xl font-bold tabular-nums"><FooterClock /></p>
           <p className="mt-1 text-sm text-mute">Sylhet, Bangladesh (GMT+6)</p>
           <a href={`mailto:${profile.email}`} className="mt-6 block break-all text-sm text-bone/80 underline-offset-4 hover:text-accent hover:underline">{profile.email}</a>
         </div>

@@ -10,7 +10,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const img = new Image();
-    img.src = "/nirob/yes.jpg";
+    img.src = "/nirob/yes.webp";
     const c = animate(0, 100, {
       duration: 2.4,
       ease: [0.65, 0, 0.35, 1],
@@ -138,13 +138,17 @@ export function ScrollSpine({ active }: { active?: string }) {
   );
 }
 
+/* Keep the ticking clock isolated so the full header does not re-render every second. */
+function SylhetClock() {
+  const now = useNow();
+  return <>{sylhetTime(now)}</>;
+}
+
 /* ================= HEADER ================= */
 export function Header({ active, ready, onMenu, onPalette }: { active: string; ready: boolean; onMenu: () => void; onPalette: () => void }) {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const now = useNow();
-
   useMotionValueEvent(scrollY, "change", (v) => {
     const prev = scrollY.getPrevious() ?? 0;
     setHidden(v > prev && v > 400);
@@ -188,7 +192,7 @@ export function Header({ active, ready, onMenu, onPalette }: { active: string; r
         <div className="flex items-center gap-4">
           <div className="hidden text-right font-mono text-[10px] uppercase leading-tight tracking-[0.18em] text-mute lg:block">
             <p>Sylhet, BD</p>
-            <p className="tabular-nums text-bone">{sylhetTime(now)}</p>
+            <p className="tabular-nums text-bone"><SylhetClock /></p>
           </div>
           <button
             onClick={onPalette}

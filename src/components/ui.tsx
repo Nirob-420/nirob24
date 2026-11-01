@@ -464,8 +464,8 @@ export const WhatsappIcon = ({ className = "h-5 w-5" }: { className?: string }) 
   </svg>
 );
 
-/* ---------- Site images are bundled locally under public/nirob ---------- */
-export const getImageUrl = (file: string) => `/nirob/${file}`;
+/* Serve modern compressed WebP variants of JPEG assets where available. */
+export const getImageUrl = (file: string) => `/nirob/${file.replace(/\.jpe?g$/i, ".webp")}`;
 export const asset = getImageUrl;
 
 export function SiteImage({
@@ -474,7 +474,16 @@ export function SiteImage({
   className = "",
   ...rest
 }: { file: string; alt: string; className?: string } & Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src" | "alt" | "className">) {
-  return <img {...rest} src={getImageUrl(file)} alt={alt} className={className} />;
+  return (
+    <img
+      {...rest}
+      src={getImageUrl(file)}
+      alt={alt}
+      className={className}
+      loading={rest.loading ?? "lazy"}
+      decoding={rest.decoding ?? "async"}
+    />
+  );
 }
 
 /* ---------- Chapter divider: number wipes in, rule draws across ---------- */
