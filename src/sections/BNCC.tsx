@@ -74,7 +74,7 @@ function HologramCard() {
         />
         <div className="min-w-0 flex-1">
           <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-[#00e676]">
-            7 BNCC Battalion · Junior Platoon
+            Moinamati Regiment · 7 BNCC Battalion
           </p>
           <p className="font-display text-base font-extrabold leading-tight text-white">
             CADET SGT
@@ -87,7 +87,8 @@ function HologramCard() {
         {[
           ["Name", profile.fullName],
           ["Role", "Cadet Sgt (Cadet Sergeant)"],
-          ["Unit", "7 BNCC Battalion"],
+          ["Regiment", "Moinamati Regiment"],
+          ["Battalion", "7 BNCC Battalion"],
           ["Platoon", "JCPSC Junior Platoon"],
           ["Location", "JCPSC, Sylhet, BD"],
         ].map(([k, v]) => (
@@ -191,11 +192,11 @@ export function BNCC() {
               </span>
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-bone/70 sm:text-base">
-              My proudest extracurricular hobby outside software development: serving as a{" "}
-              <strong className="text-white">Cadet Sergeant (Cadet Sgt)</strong> in the{" "}
-              <strong className="text-white">7 BNCC Battalion</strong> at{" "}
-              <strong className="text-white">JCPSC Junior Platoon</strong> (Jalalabad Cantonment Public School &amp; College, Class 10). Drill training,
-              discipline, physical parade, and comradeship.
+              I am a Class 10 student at{" "}
+              <strong className="text-white">Jalalabad Cantonment Public School &amp; College (JCPSC)</strong> and serve as a{" "}
+              <strong className="text-white">Cadet Sergeant</strong> in the JCPSC Junior Platoon, under the{" "}
+              <strong className="text-white">7 BNCC Battalion, Moinamati Regiment</strong>. Drill training,
+              discipline, parade, and comradeship are important parts of my cadet life.
             </p>
           </div>
 
@@ -242,7 +243,7 @@ export function BNCC() {
                 f/1.8 · 1/500s · ISO 100 · 35mm
               </span>
               <span className="hidden md:inline text-[#00e676]">
-                24.93°N, 91.98°E (JCPSC Junior Platoon, 7 BNCC Bn)
+                24.93°N, 91.98°E (7 BNCC Battalion, Moinamati Regiment)
               </span>
             </div>
 
@@ -351,7 +352,7 @@ export function BNCC() {
                   Handshake with Bangladesh Army Officer
                 </h3>
                 <p className="mt-1 font-mono text-[10px] text-bone/80 sm:text-xs">
-                  Cadet Sgt Al Nasif MD Nirob · JCPSC Junior Platoon (7 BNCC Battalion)
+                  Cadet Sgt Al Nasif MD Nirob · JCPSC Junior Platoon · 7 BNCC Battalion, Moinamati Regiment
                 </p>
               </div>
 
@@ -439,7 +440,7 @@ export function BNCC() {
                 {
                   id: "03",
                   title: "Cadet Sgt (Rank)",
-                  desc: "Serving as Cadet Sergeant in JCPSC Junior Platoon, 7 BNCC Battalion.",
+                  desc: "Serving as Cadet Sergeant in the JCPSC Junior Platoon, 7 BNCC Battalion, Moinamati Regiment.",
                 },
               ].map((note) => (
                 <div
@@ -478,7 +479,11 @@ export function BNCC() {
                 <span className="text-white">BNCC Bangladesh</span>
               </div>
               <div className="mt-2 flex items-center justify-between text-mute">
-                <span>Unit</span>
+                <span>Regiment</span>
+                <span className="text-[#00e676]">Moinamati</span>
+              </div>
+              <div className="mt-2 flex items-center justify-between text-mute">
+                <span>Battalion</span>
                 <span className="text-[#00e676]">7 BNCC Battalion</span>
               </div>
               <div className="mt-2 flex items-center justify-between text-mute">
@@ -548,7 +553,7 @@ export function BNCC() {
               <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 bg-[#141412] px-6 py-4">
                 <div className="font-mono text-xs">
                   <p className="font-bold text-white">
-                    Cadet Sgt Al Nasif MD Nirob · 7 BNCC Battalion (JCPSC Junior Platoon)
+                    Cadet Sgt Al Nasif MD Nirob · JCPSC Junior Platoon, 7 BNCC Battalion, Moinamati Regiment
                   </p>
                   <p className="mt-0.5 text-mute">
                     JCPSC Junior Platoon, Sylhet · Extracurricular Hobby: Drill, parade &amp; discipline.
