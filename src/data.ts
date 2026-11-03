@@ -8,7 +8,7 @@ export const profile = {
   hometown: "Tahirpur, Sunamganj",
   languages: "Bangla (Native), English (Fluent)",
   nationality: "Bangladeshi",
-  interests: "Web Development, UI/UX Design, Cadet Sergeant @ 7 BNCC Battalion (JCPSC Junior Platoon), Free Fire E-Sports, Photography",
+  interests: "Web Development, UI/UX Design, Cadet Sergeant in the JCPSC Junior Platoon, 7 BNCC Battalion, Moinamati Regiment, Free Fire E-Sports, Photography",
   tagline:
     "A passionate web developer and designer creating modern, responsive websites with cutting-edge technologies.",
   roles: ["Web Developer", "UI/UX Designer", "Frontend Developer", "Student", "Freelancer"],
@@ -53,11 +53,11 @@ export const stats = [
 ];
 
 export const story = (age: number) => [
-  `Hi! My name is Nirob, and I'm ${age} years old. I am now reading in class 10 at JCPSC and proudly serve as a Cadet Sergeant (Cadet Sgt) in the 7 BNCC Battalion (JCPSC Junior Platoon) as my favorite extracurricular passion. I always try to be a good student and work hard to achieve my goals. I come from Tahirpur, Sunamganj, a place I'm really proud of.`,
+  `Hi! My name is Nirob, and I'm ${age} years old. I study in Class 10 at Jalalabad Cantonment Public School and College (JCPSC), where I serve as a Cadet Sergeant in the JCPSC Junior Platoon under the 7 BNCC Battalion, Moinamati Regiment. I always try to be a good student and work hard to achieve my goals. I come from Tahirpur, Sunamganj, a place I'm really proud of.`,
   "My hobbies are BNCC cadet drill, photography, and cycling, which help me see the world from new perspectives and build physical and mental discipline. My biggest dream is to become an engineer and travel the world to explore new places and learn new things. I believe that with hard work and dedication, I can make all my dreams come true.",
 ];
 
-export const traits = ["Cadet Sgt (7 BNCC Bn)", "JCPSC Junior Platoon", "Photography", "Cycling", "Future Engineer", "E-Sports"];
+export const traits = ["Cadet Sergeant", "JCPSC Junior Platoon", "7 BNCC Battalion", "Moinamati Regiment", "Photography", "Cycling", "Future Engineer", "E-Sports"];
 
 export const clips = [
   {
